@@ -1,0 +1,57 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system",
+      "type": "cn.wxj.common.config.properties.FileSystemProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.original-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.retry",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.sleep",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.timeout",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.upload-back-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.upload-catch-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.upload-front-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.upload-head-url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "cn.wxj.common.config.properties.FileSystemProperties",
+      "name": "spring.file-system.upload-url",
+      "type": "java.lang.String"
+    }
+  ]
+}

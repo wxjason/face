@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wxj.system.mapper.OperationLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.wxj.system.entity.OperationLog">
+        <id column="id" property="id" />
+        <result column="user_id" property="userId" />
+        <result column="remote_ip" property="remoteIp" />
+        <result column="menu_id" property="menuId" />
+        <result column="menu_sub_id" property="menuSubId" />
+        <result column="result_code" property="resultCode" />
+        <result column="create_time" property="createTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS id, user_id AS userId, remote_ip AS remoteIp, menu_id AS menuId, menu_sub_id AS menuSubId, result_code AS resultCode, create_time AS createTime
+    </sql>
+    <select id="selectListByPage" resultType="cn.wxj.system.entity.OperationLog" parameterType="com.baomidou.mybatisplus.plugins.Page">
+        SELECT
+            o.id AS id,
+            o.user_id AS userId,
+            o.remote_ip AS remoteIp,
+            o.menu_id AS menuId,
+            o.menu_sub_id AS menuSubId,
+            o.result_code AS resultCode,
+            o.create_time AS createTime
+        FROM sys_operation_log AS o
+        LEFT JOIN sys_user AS u ON o.user_id = u.id
+        WHERE 1 = 1 AND u.id IS NOT NULL
+        <if test="operationLogAo.name != null and operationLogAo.name != ''">
+            AND u.name LIKE concat('%', #{operationLogAo.name}, '%')
+        </if>
+        <if test="operationLogAo.username != null and operationLogAo.username != ''">
+            AND u.username LIKE concat('%', #{operationLogAo.username}, '%')
+        </if>
+        <if test="operationLogAo.result != null and operationLogAo.result == 1">
+            AND o.result_code = 200
+        </if>
+        <if test="operationLogAo.result != null and operationLogAo.result == 0">
+            AND o.result_code != 200
+        </if>
+        <if test="operationLogAo.menuId != null">
+            AND o.menu_id LIKE concat('%', #{operationLogAo.menuId}, '%')
+        </if>
+        <if test="operationLogAo.startTime != null and operationLogAo.startTime != ''">
+            AND o.create_time &gt;= #{operationLogAo.startTime}
+        </if>
+        <if test="operationLogAo.endTime != null and operationLogAo.endTime != ''">
+            AND o.create_time &lt;= #{operationLogAo.endTime}
+        </if>
+        <if test="isAdmin == false">
+            AND o.user_id != '1'
+        </if>
+        ORDER BY o.create_time DESC
+    </select>
+    <select id="list" resultType="cn.wxj.system.vo.OperationLogVo">
+        SELECT
+            u.`name` AS `name`,
+            u.username AS username,
+            o.remote_ip AS remoteIp,
+            u.phone AS phone,
+            u.email AS email,
+            m1.menu_name AS menu,
+            m2.menu_name AS button,
+            if(o.result_code = 200, 1, 0) AS result,
+            date_format(o.create_time, '%Y-%m-%d %H:%i:%s') AS createTime
+        FROM sys_operation_log AS o
+        LEFT JOIN sys_user AS u ON o.user_id = u.id
+        LEFT JOIN sys_menu AS m1 ON o.menu_id = m1.id
+        LEFT JOIN sys_menu AS m2 ON o.menu_sub_id = m2.id
+        WHERE 1 = 1 AND u.id IS NOT NULL
+        <if test="operationLogAo.name != null and operationLogAo.name != ''">
+            AND u.name LIKE concat('%', #{operationLogAo.name}, '%')
+        </if>
+        <if test="operationLogAo.username != null and operationLogAo.username != ''">
+            AND u.username LIKE concat('%', #{operationLogAo.username}, '%')
+        </if>
+        <if test="operationLogAo.result != null and operationLogAo.result == 1">
+            AND o.result_code = 200
+        </if>
+        <if test="operationLogAo.result != null and operationLogAo.result == 0">
+            AND o.result_code != 200
+        </if>
+        <if test="operationLogAo.menuId != null">
+            AND o.menu_id LIKE concat('%', #{operationLogAo.menuId}, '%')
+        </if>
+        <if test="operationLogAo.startTime != null and operationLogAo.startTime != ''">
+            AND o.create_time &gt;= #{operationLogAo.startTime}
+        </if>
+        <if test="operationLogAo.endTime != null and operationLogAo.endTime != ''">
+            AND o.create_time &lt;= #{operationLogAo.endTime}
+        </if>
+        <if test="isAdmin == false">
+            AND o.user_id != '1'
+        </if>
+        ORDER BY o.create_time DESC
+    </select>
+
+</mapper>

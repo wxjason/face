@@ -1,0 +1,204 @@
+@charset "utf-8";
+
+.sec1{
+  margin: 0 0 30px 0;
+}
+.sec2{
+  flex: 1;
+  height: 415px;
+}
+.boxdv{
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 3px 2px #E4EAF8;
+  background: #fff;
+}
+.sec1 .boxdv{
+  color: #666;
+  padding: 30px 5px 0 30px;
+}
+.spcont p{
+  line-height: 65px;
+}
+.sp1, .sp2, .sp3, .sp4{
+  float: left;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  border: 1px solid transparent;
+}
+.sp1{
+  font-size: 16px;
+  width: 20%;
+}
+.spcont .sp2{
+  color: #4DA1FF;
+  font-size: 38px;
+}
+.spcont .sp3{
+  color: #1ab394;
+  font-size: 20px;
+}
+.spcont .sp4{
+  color: #4DA1FF;
+  font-size: 20px;
+}
+.spcont .rateval{
+  font-size: 38px;
+}
+.spcont .sval{
+  font-size: 38px;
+}
+.sp2{
+  width: 50%;
+}
+.sp3{
+  width: 30%;
+}
+.sp4{
+  width: 80%;
+  padding-left: 15%;
+}
+.sptitle{
+  margin-bottom: 10px;
+}
+.sptitle span{
+  font-size: 18px;
+}
+.sec1 .boxdv{
+  height: 320px;
+}
+.sec2 .boxdv{
+  height: 415px;
+}
+.boxdv2{
+  display: flex
+}
+.boxdv2 .tbldv{
+  flex: 1;
+}
+.boxdv2 .contrldv{
+  font-size: 0;
+  width: 120px;
+  padding: 70px 0 0 0;
+}
+.boxdv2 .contrldv /deep/ .el-radio{
+  line-height: 40px;
+}
+.contrldv /deep/ .el-radio+.el-radio{
+  margin: 0;
+}
+.mgbox{
+  padding: 0 30px;
+}
+.mgbox2{
+  padding: 0 30px 0 0;
+}
+.boxTop{
+  height: 45px;
+  font-size: 16px;
+  padding: 20px 30px 0;
+}
+.xqbtn{
+  float: right;
+}
+.chartDv{
+  height: 100%;
+  margin-top: -45px;
+  padding-top: 45px;
+}
+.channelchart{
+  color: #4DA1FF;
+  font-size: 56px;
+  text-align: center;
+  line-height: 170px;
+  width: 200px;
+  height: 200px;
+  border: 15px solid #4DA1FF;
+  border-radius: 50%;
+  margin: 50px auto 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.cntip{
+  color: #666;
+  font-size: 22px;
+  text-align: center;
+}
+.interFaceName{
+  color: #666;
+  font-size: 16px;
+  line-height: 40px;
+  cursor: pointer;
+}
+.swpi{
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #4DA1FF;
+  border-radius: 2px;
+  vertical-align: middle;
+  margin: -2px 8px 0 0;
+}
+.swiper-container {
+    padding-top: 5px;
+    height: 110px;
+}
+.swiper-slide-active .swpi{
+  background: #4DA1FF;
+  border-color: #4DA1FF;
+}
+@media (max-width: 1366px) {
+  .sp1{
+    font-size: 14px;
+  }
+  .spcont .sp2{
+    font-size: 24px;
+  }
+  .spcont .rateval{
+    font-size: 24px;
+  }
+  .spcont .sval{
+    font-size: 24px;
+  }
+  .sptitle span{
+    font-size: 14px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

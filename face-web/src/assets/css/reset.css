@@ -1,0 +1,79 @@
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+body{
+	color: #a8a8b2;
+	font-size: 14px;
+    font-family: 'Microsoft YaHei';
+    /* font-family: 'SimSun'; */
+}
+table{
+	border-collapse: collapse;
+}
+ul,ol,li{
+	list-style: none;
+}
+input[type='text'],input[type='password'], input[type='date'], select, textarea{
+	padding: 0 0 0 8px;
+}
+input[type='date'], input[type='button'], input[type='submit'], input[type='reset'], button{
+	cursor: pointer;
+}
+textarea{
+    padding: 5px 8px;
+    resize: none;
+    height: 80px;
+}
+button, input, select{
+    font-size: 12px;
+}
+a, img, input, select, button, textarea{
+	outline: none;
+}
+a{
+    color: #333;
+	text-decoration: none;
+}
+a:hover{
+      text-decoration:none;
+}
+a:link, a:visited, a:hover, a:active{
+    color: #333;
+}
+h1, h2, h3, h4, h5, h6{
+	font-weight: normal;
+}
+header,nav,footer,aside,main{
+	display: block;
+}
+i{
+	font-style: normal;
+}
+
+/* IE去掉自带的叉号等图标 -------------------------------------*/
+
+input::-ms-clear{ display:none; }
+input::-ms-reveal{ display:none; }
+
+
+
+select::-ms-expand{
+    /* color: #c0c0cc; */
+    display: none;
+}
+
+/* placeholder颜色 */
+/* input.form-control::-webkit-input-placeholder{
+    color:#c0c0cc;
+}
+input.form-control::-moz-placeholder{
+    color:#c0c0cc;
+}
+input.form-control:-moz-placeholder{
+    color:#c0c0cc;
+}
+input.form-control:-ms-input-placeholder{
+    color:#c0c0cc;
+} */

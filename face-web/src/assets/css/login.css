@@ -1,0 +1,107 @@
+.login-wrapper{
+    position: absolute;
+    width: 100%;
+    height:100%;
+    top: 0px;
+    left: 0px;
+    padding: 180px 0 0 0;
+    background: #134D8C url('../img/lgbg.jpg') left bottom no-repeat;
+
+}
+.loginOutoer{
+    position: relative;
+    width: 420px;
+    height: 460px;
+    margin: 0 auto;
+    margin-top: -50px;
+}
+
+.loginOpactiyEffectBox{
+    display: block;
+    width: 420px;
+    height: 460px;
+    background: #ffffff;
+    filter:alpha(Opacity=20);
+	-moz-opacity:0.2;
+    opacity: 0.2;
+    border-radius: 5px;
+}
+
+.sysName{
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+    margin: 0 0 40px 0;
+    color: #fff;
+    font-size: 33px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+.lginfo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    padding: 65px 45px;
+    left: 0px;
+    top: 0px;
+    background: rgba(0, 0, 0, .4);
+    border-radius: 5px;
+
+}
+.loginft{
+    color: #fff;
+    font-size: 20px;
+    text-align: center;
+    margin: 0 0 50px 0;
+}
+.lgiptdv{
+    width: 100%;
+    height: 40px;
+    background: #fff;
+    overflow: hidden;
+    margin: 0 auto 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.lgico{
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    float: left;
+    border-right: 1px solid #ccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #F5F5F5;
+}
+.userico{
+    background-image: url('../img/user_lg.png');
+}
+.pwdico{
+    background-image: url('../img/pwd_lg.png');
+}
+.lgipt{
+    width: 245px;
+    height: 38px;
+    color: #999;
+    font-size: 14px;
+    line-height: 45px;
+    border: none;
+    background: #fff;
+}
+.btn{
+    width: 100%;
+    height: 42px;
+    margin: 50px 0 0 0;
+    border-radius: 5px;
+    border: none;
+}
+.lgbtn{
+    font-size: 16px;
+}
+.form-control:focus{
+    border: none;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;  /* 背景填充颜色 */
+    -webkit-text-fill-color: #999;  /* 字体颜色 */
+}

@@ -1,0 +1,16 @@
+cn\wxj\face\api\bean\DetectResp.class
+cn\wxj\face\api\bean\SearchResp.class
+cn\wxj\face\api\bean\SearchResult.class
+cn\wxj\face\api\bean\MatchResult.class
+cn\wxj\face\api\bean\SearchUser.class
+cn\wxj\face\api\bean\MatchResp.class
+META-INF\spring-configuration-metadata.json
+cn\wxj\face\api\bean\FaceBaseResp.class
+cn\wxj\face\api\bean\Face.class
+cn\wxj\face\api\FaceApiApplication.class
+cn\wxj\face\api\service\FaceApiService.class
+cn\wxj\face\api\controller\FaceApiController.class
+cn\wxj\face\api\bean\ImageReq.class
+cn\wxj\face\api\bean\User.class
+cn\wxj\face\api\bean\DetectResult.class
+cn\wxj\face\api\config\properties\FaceApiProperties.class

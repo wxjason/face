@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+.roleDv{
+  width: 1000px;
+  padding: 30px 0 0 40px;
+
+}
+.roleDv /deep/ .el-input__inner{
+  width: 100%;
+}
+.roletop{
+  margin-top: 40px;
+}
+.roleouter{
+  margin-top: 15px;
+  padding: 20px;
+  min-height: 250px;
+  border: 1px solid #e0e0e0;
+}
+.btnsdv{
+  padding-top: 40px;
+}
+.btnsdv .el-button{
+  width: 150px;
+  margin-right: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

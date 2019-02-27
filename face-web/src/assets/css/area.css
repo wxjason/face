@@ -1,0 +1,101 @@
+@charset "utf-8";
+
+.prvouter{
+  padding: 30px 0 0 30px;
+}
+.infodv{
+  position: relative;
+  /* border: 1px solid blue; */
+  height: 530px;
+  overflow: hidden;
+  margin-top: 10px;
+  /*  */
+}
+.titldv{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 20px;
+  background: #fff;
+  z-index: 2;
+  /* border: 1px solid red; */
+}
+.oprtbtn{
+  position: absolute;
+  right: -40px;
+  top: 6px;
+  width: 27px;
+  height: 27px;
+  display: inline-block;
+  cursor: pointer;
+}
+.addPrv{
+  background: url('../img/add_circle.png');
+}
+.delPrv{
+  background: url('../img/del_circle.png');
+}
+.tip{
+  position: absolute;
+  right: -355px;
+  top: 0;
+  color: red;
+  width: 300px;
+  height: 38px;
+  line-height: 38px;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;  
+}
+.infotbl{
+  width: 420px;
+  text-align: center;
+}
+.infotbl td{
+  border: 1px solid #e0e0e0;
+  height: 40px;
+  padding: 0 0 0 10px;
+}
+.innerdv{
+  /* border: 1px solid blue; */
+  /* border: 1px solid red; */
+  padding-top: 40px;
+  height: 100%;
+  overflow: hidden;
+  overflow-y: auto;
+}
+.innerdv tr:first-child td{
+  border-top: none;
+}
+.infotbl td:first-child{
+  width: 60px;
+}
+.infotbl td:nth-child(2){
+  width: 175px;
+}
+.infotbl td:nth-child(3){
+  position: relative;
+  width: 175px;
+}
+.add-form /deep/ .el-input__inner{
+  width: 160px;
+  height: 35px;
+  padding: 0;
+  border: none;
+}
+.btnsdv{
+  /* position: fixed;
+  left: 255px;
+  right: 55px;
+  bottom: 60px;
+  padding: 30px 50px;
+  background: #fff;
+  margin: 0; */
+  padding: 30px 0 0;
+  margin: 0;
+}
+.btnsdv .el-button{
+  width: 120px;
+  margin: 0 40px 0 0;
+}

@@ -1,0 +1,83 @@
+@charset "utf-8";
+.channeldv{
+  padding: 30px 40px 0;
+}
+.channeldv /deep/ .el-input__inner{
+  width: 340px;
+}
+.blockdv{
+  padding: 20px 0 0 50px;
+}
+.bldv{
+  padding: 20px 0 0 25px;
+}
+.sliderdv{
+  margin-left: 20px;
+}
+.ckgroup{
+  padding: 0 0 0 20px;
+}
+.fixVal {
+  width: 70px;
+  margin-left: 10px;
+}
+.fixVal /deep/ .el-input__inner{
+  width: 100%;
+  height: 34px;
+  line-height: 34px;
+}
+.keySpan{
+  max-width: 308px;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+.copyBtn{
+  width: 18px;
+  height: 20px;
+  background: url('../img/copy.png');
+  display: inline-block;
+  cursor: pointer;
+  vertical-align: middle;
+  margin: 0 0 0 10px;
+}
+.callspan{
+  padding-left: 20px;
+}
+.btnsdv{
+  padding-top: 20px;
+}
+.btnsdv .el-button{
+  width: 150px;
+  margin-right: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
