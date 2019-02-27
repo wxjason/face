@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wxj.system.mapper.UserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.wxj.system.entity.User">
+        <id column="id" property="id" />
+        <result column="role_id" property="roleId" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="name" property="name" />
+        <result column="phone" property="phone" />
+        <result column="email" property="email" />
+        <result column="status" property="status" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="update_user_id" property="updateUserId" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS id, role_id AS roleId, username AS username, `password` AS `password`, `name` AS `name`, phone AS phone, email AS email, `status` AS `status`, del AS del, create_user_id AS createUserId, create_time AS createTime, update_user_id AS updateUserId, update_time AS updateTime
+    </sql>
+    <select id="selectListByPage" resultType="cn.wxj.system.entity.User" parameterType="com.baomidou.mybatisplus.plugins.Page">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM sys_user
+        WHERE del = 1 AND id != '1'
+        <if test="userAo.username != null and userAo.username != ''">
+            AND username LIKE concat('%', #{userAo.username}, '%')
+        </if>
+        <if test="userAo.name != null and userAo.name != ''">
+            AND `name` LIKE concat('%', #{userAo.name}, '%')
+        </if>
+        <if test="userAo.phone != null and userAo.phone != ''">
+            AND phone LIKE concat('%', #{userAo.phone}, '%')
+        </if>
+        <if test="userAo.status != null">
+            AND `status` = #{userAo.status}
+        </if>
+        <if test="userAo.roleId != null and userAo.roleId != ''">
+            AND role_id = #{userAo.roleId}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+    <select id="selectUserList" resultType="cn.wxj.system.entity.User">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM sys_user
+        WHERE del = 1 AND id != '1'
+        <if test="userAo.username != null and userAo.username != ''">
+            AND username LIKE concat('%', #{userAo.username}, '%')
+        </if>
+        <if test="userAo.name != null and userAo.name != ''">
+            AND `name` LIKE concat('%', #{userAo.name}, '%')
+        </if>
+        <if test="userAo.phone != null and userAo.phone != ''">
+            AND phone LIKE concat('%', #{userAo.phone}, '%')
+        </if>
+        <if test="userAo.status != null and userAo.status != ''">
+            AND `status` = #{userAo.status}
+        </if>
+        <if test="userAo.roleId != null and userAo.roleId != ''">
+            AND role_id = #{userAo.roleId}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

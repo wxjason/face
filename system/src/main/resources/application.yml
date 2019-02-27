@@ -1,0 +1,60 @@
+server:
+  port: 8005
+  servlet:
+    context-path: /system
+spring:
+  application:
+    name: system
+  datasource:
+    url: jdbc:mysql://192.168.2.207:3306/face?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: Tce123456
+    hikari:
+      connection-test-query: SELECT 1
+eureka:
+  client:
+    registerWithEureka: false #是否向Eureka进行注册
+    fetchRegistry: ${eureka.client.registerWithEureka}
+    serviceUrl:
+      defaultZone: http://127.0.0.1:1111/eureka/
+  instance:
+    preferIpAddress: true
+    metadata-map:
+      management:
+        context-path: ${server.servlet.context-path}/actuator
+    health-check-url-path: ${server.servlet.context-path}/actuator/health
+    status-page-url-path: ${server.servlet.context-path}/actuator/info
+    home-page-url-path: ${server.servlet.context-path}
+###################  mybatis-plus配置  ###################
+mybatis-plus:
+  mapper-locations: classpath*:mapping/*.xml         #mapping扫描
+  typeAliasesPackage: cn.wxj.**.entity              #实体扫描，多个package用逗号或者分号分隔
+  global-config:
+    id-type: 0  #0:数据库ID自增   1:用户输入id  2:全局唯一id(IdWorker)  3:全局唯一ID(uuid)
+    db-column-underline: true
+    refresh-mapper: true
+  configuration:
+    map-underscore-to-camel-case: false
+    cache-enabled: true #配置的缓存的全局开关
+    lazyLoadingEnabled: true #延时加载的开关
+    multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印sql语句,调试用
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+
+management:
+  endpoint:
+    health:
+      show-details: ALWAYS
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+logging:
+  file: logs/system.log
+  level:
+#    xatu.zsl: debug #不同目录下的日志可配置不同级别
+    org.springfromework.web: debug

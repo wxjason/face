@@ -1,0 +1,32 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "cn.wxj.face.api.config.properties.FaceApiProperties",
+      "name": "face.api",
+      "type": "cn.wxj.face.api.config.properties.FaceApiProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "cn.wxj.face.api.config.properties.FaceApiProperties",
+      "name": "face.api.api-key",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "cn.wxj.face.api.config.properties.FaceApiProperties",
+      "name": "face.api.app-id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "cn.wxj.face.api.config.properties.FaceApiProperties",
+      "name": "face.api.group-id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "cn.wxj.face.api.config.properties.FaceApiProperties",
+      "name": "face.api.secret-key",
+      "type": "java.lang.String"
+    }
+  ]
+}
