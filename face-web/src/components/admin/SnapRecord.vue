@@ -66,7 +66,7 @@
         recordList: [],
         page: {
           currentPage: 1,
-          pageSize: 16,
+          pageSize: 8,
           totalPage: 0,
           offset: 0
         },
@@ -97,7 +97,7 @@
       resetSearch() {
         this.page = {
           currentPage: 1,
-          pageSize: 16,
+          pageSize: 8,
           totalPage: 0,
           offset: 0
         };
