@@ -179,6 +179,7 @@
           loading.close();
           self.imageBase64 = evt.target.result;
           self.addForm.personImage = self.imageBase64.substring(self.imageBase64.indexOf(",") + 1);
+          self.editForm.personImage = self.imageBase64.substring(self.imageBase64.indexOf(",") + 1);
         };
         return false;
       },

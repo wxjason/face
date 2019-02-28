@@ -12,14 +12,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/system': {//在请求中使用/api即访问target地址
-        target: 'http://192.168.2.16:8005',//这里填写需要跨域访问的路径
+        target: 'http://127.0.0.1:8005',//这里填写需要跨域访问的路径
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
         }
       },
       '/api/face': {//在请求中使用/api即访问target地址
-        target: 'http://192.168.2.16:6666',//这里填写需要跨域访问的路径
+        target: 'http://127.0.0.1:6666',//这里填写需要跨域访问的路径
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

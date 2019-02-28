@@ -1,8 +1,5 @@
 package cn.wxj.common.util;
 
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -415,11 +412,11 @@ public class FileUtils {
     }
 
     public static String process(String sourceBase64, int xwidth, int yheight) {
-        InputStream is = new java.io.ByteArrayInputStream(Base64Utils.decodeFromString(sourceBase64));
+        InputStream is = new ByteArrayInputStream(Base64Utils.decodeFromString(sourceBase64));
         //构造Image对象
         Image src = null;
         //输出到文件流
-        ByteOutputStream out = new ByteOutputStream();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
         try {
             src = ImageIO.read(is);
             //可以计算比例缩小放大（略...）
@@ -429,15 +426,20 @@ public class FileUtils {
             tag.getGraphics().drawImage(src,0,0,xwidth,yheight,null);
 
 
-            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+            ImageIO.write(tag, IMAGE_TYPE_JPG, out);
             //近JPEG编码
-            encoder.encode(tag);
+//            encoder.encode(tag);
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            out.close();
+            try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return Base64Utils.encodeToString(out.getBytes());
+        return Base64Utils.encodeToString(out.toByteArray());
     }
 
     public static byte[] file2Byte(String filePath) {

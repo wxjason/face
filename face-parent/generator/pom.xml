@@ -29,11 +29,6 @@
             <version>${velocity-engine-core.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.tce</groupId>
-            <artifactId>common</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatis-plus.version}</version>
