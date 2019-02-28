@@ -28,4 +28,8 @@ public class PersonVo extends BaseVo {
      * 人员人脸图Base64
      */
     private String personImage;
+    /**
+     * 创建时间
+     */
+    private String createTime;
 }

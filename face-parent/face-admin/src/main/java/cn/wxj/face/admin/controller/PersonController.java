@@ -51,6 +51,12 @@ public class PersonController extends BaseController {
         return SUCCESS_RESULT;
     }
 
+    @GetMapping("/detail/{personId}")
+    public String detail(@PathVariable String personId){
+        Person person = personService.getByPersonId(personId);
+        return success(person, PersonVo.class);
+    }
+
     @GetMapping("/delete/{personId}")
     public String delete(@PathVariable String personId){
         personService.deletePerson(personId);

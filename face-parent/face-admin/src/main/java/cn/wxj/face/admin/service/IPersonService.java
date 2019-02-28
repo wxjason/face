@@ -44,4 +44,11 @@ public interface IPersonService extends IService<Person> {
      * @return
      */
     List<Person> listByPage(Page<Person> page, Person person);
+
+    /**
+     * 删除人员信息
+     * @param personId
+     * @return
+     */
+    Person getByPersonId(String personId);
 }

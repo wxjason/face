@@ -41,10 +41,12 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     @Override
     public String addPerson(Person person) {
         String personId = faceApiService.addUser(person.getPersonImage());
-        String imageName = personId + StringConstants.DOT + FileUtils.IMAGE_TYPE_JPG;
+        String imagePath = imageSavePath + personId + StringConstants.DOT + FileUtils.IMAGE_TYPE_JPG;
         person.setId(personId);
-        FileUtils.saveImageBase64(person.getPersonImage(), imageSavePath + imageName);
-        person.setPersonImage(imageName);
+        String image = FileUtils.process(person.getPersonImage(), 800, 800);
+        FileUtils.saveImageBase64(image, imagePath);
+        person.setPersonImage(imagePath);
+        person.setDel(Delete.NORMOL.getCode());
         person.setCreateUserId(HttpUtils.getUserIdFromToken());
         person.setCreateTime(DateUtils.localDateTime());
         this.insert(person);
@@ -54,9 +56,10 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     @Override
     public void updatePerson(Person person) {
         faceApiService.updateUser(person.getId(), person.getPersonImage());
-        String imageName = person.getId() + StringConstants.DOT + FileUtils.IMAGE_TYPE_JPG;
-        FileUtils.saveImageBase64(person.getPersonImage(), imageSavePath + imageName);
-        person.setPersonImage(imageName);
+        String imagePath = imageSavePath + person.getId() + StringConstants.DOT + FileUtils.IMAGE_TYPE_JPG;
+        String image = FileUtils.process(person.getPersonImage(), 800, 800);
+        FileUtils.saveImageBase64(image, imagePath);
+        person.setPersonImage(imagePath);
         person.setUpdateUserId(HttpUtils.getUserIdFromToken());
         person.setUpdateTime(DateUtils.localDateTime());
         this.updateById(person);
@@ -76,5 +79,10 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     @Override
     public List<Person> listByPage(Page<Person> page, Person person) {
         return this.baseMapper.findListByPage(page, person);
+    }
+
+    @Override
+    public Person getByPersonId(String personId) {
+        return this.selectById(personId);
     }
 }

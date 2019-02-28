@@ -1,5 +1,8 @@
 package cn.wxj.common.util;
 
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
@@ -10,6 +13,8 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -403,6 +408,52 @@ public class FileUtils {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static String process(String sourceBase64, int xwidth, int yheight) {
+        InputStream is = new java.io.ByteArrayInputStream(Base64Utils.decodeFromString(sourceBase64));
+        //构造Image对象
+        Image src = null;
+        //输出到文件流
+        ByteOutputStream out = new ByteOutputStream();
+        try {
+            src = ImageIO.read(is);
+            //可以计算比例缩小放大（略...）
+
+            BufferedImage tag = new BufferedImage(xwidth,yheight,BufferedImage.TYPE_INT_RGB);
+            //绘制缩小后的图
+            tag.getGraphics().drawImage(src,0,0,xwidth,yheight,null);
+
+
+            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+            //近JPEG编码
+            encoder.encode(tag);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            out.close();
+        }
+        return Base64Utils.encodeToString(out.getBytes());
+    }
+
+    public static byte[] file2Byte(String filePath) {
+        byte[] buffer = null;
+        try {
+            File file = new File(filePath);
+            FileInputStream fis = new FileInputStream(file);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            byte[] b = new byte[1024];
+            int n;
+            while ((n = fis.read(b)) != -1) {
+                bos.write(b, 0, n);
+            }
+            fis.close();
+            bos.close();
+            buffer = bos.toByteArray();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return buffer;
     }
 
 }

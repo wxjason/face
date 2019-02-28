@@ -4,6 +4,9 @@ import Router from 'vue-router';
 //首页 home
 import Home from '../components/Home.vue';
 
+// admin
+import Person from '../components/admin/Person.vue';
+
 // system
 import User from '../components/system/User.vue';
 import Role from '../components/system/Role.vue';
@@ -38,17 +41,22 @@ export default new Router({
       component: App,
       children: [
         {
-          path: 'home',
+          path: '/home',
           name: 'Home',
           component: Home
         },
         {
-          path: 'user',
+          path: '/admin/person',
+          name: 'Person',
+          component: Person
+        },
+        {
+          path: '/user',
           name: 'User',
           component: User
         },
         {
-          path: 'role',
+          path: '/role',
           name: 'Role',
           component: Role
         },

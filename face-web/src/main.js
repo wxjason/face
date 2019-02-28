@@ -24,7 +24,7 @@ Vue.prototype.$ = $;
 Vue.prototype.common = common;
 Vue.prototype.cookieUtil = cookieUtil;
 Vue.prototype.loadingOptions = {
-  fullscreen: false,
+  fullscreen: true,
   body: true,
   lock: true,
   text: '数据加载中，请稍后……',

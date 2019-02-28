@@ -19,11 +19,12 @@
         id AS id, person_name AS personName, person_image AS personImage, del AS del, create_time AS createTime, update_user_id AS updateUserId, update_time AS updateTime
     </sql>
     <select id="findListByPage" resultType="cn.wxj.face.admin.entity.Person" parameterType="com.baomidou.mybatisplus.plugins.Page">
-        SELECT *
-          FROM ad_person
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ad_person
         WHERE del = 1
         <if test="person.personName != null and person.personName != ''">
-            AND person_name = #{personName}
+            AND person_name = #{person.personName}
         </if>
         ORDER BY create_time DESC
     </select>

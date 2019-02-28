@@ -4,31 +4,13 @@
     <div class="pgTitle">
       <p>人员管理</p>
       <div class="optdv">
-        <el-button v-if="permission.add" type="text" @click="addUser"><i class="my-icon-add my-icon"></i>添加用户</el-button>
+        <el-button v-if="permission.add" type="text" @click="addUser"><i class="my-icon-add my-icon"></i>添加人员</el-button>
       </div>
     </div>
     <!-- form表单 -->
     <el-form :inline="true" :model="searchForm" class="demo-form-inline my-form" label-width="80px">
-      <el-form-item label="用户名：">
-        <el-input v-model="searchForm.username" placeholder="全部"></el-input>
-      </el-form-item>
-      <el-form-item label="姓名：">
-        <el-input v-model="searchForm.name" placeholder="全部"></el-input>
-      </el-form-item>
-      <el-form-item label="所属角色：">
-        <el-select v-model="searchForm.roleId" placeholder="全部">
-          <el-option label="全部" :value="null"></el-option>
-          <template v-for="role in roleList">
-            <el-option :label="role.roleName" :value="role.roleId"></el-option>
-          </template>
-        </el-select>
-      </el-form-item>
-      <el-form-item label="状态：">
-        <el-select v-model="searchForm.status" placeholder="全部">
-          <el-option label="全部" :value="null"></el-option>
-          <el-option label="启用" :value="1"></el-option>
-          <el-option label="停用" :value="0"></el-option>
-        </el-select>
+      <el-form-item label="人员姓名：">
+        <el-input v-model="searchForm.personName" placeholder="全部"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="search(true)"><i class="my-icon-search my-icon"></i>搜索</el-button>
@@ -36,6 +18,39 @@
       </el-form-item>
     </el-form>
     <!-- 数据表 -->
+    <el-row :gutter="20">
+      <el-col v-on:mouseout.native="settingShow = false"
+              v-on:mouseover.native="settingShow = true"
+              :span="3" v-for="p in personList" style="margin-bottom:10px;position: relative;height: 50%!important;">
+        <el-card :body-style="{ padding: '0px' }">
+          <img :src="p.personImage" class="image">
+          <div style="padding: 14px;text-align: center;">
+            <span>{{p.personName}}</span>
+            <div class="bottom clearfix">
+              <time class="time">{{p.createTime}}</time>
+            </div>
+            <el-button
+              style="position: absolute; top: 0; right: 30px;"
+              v-if="settingShow && permission.edit"
+              size="mini"
+              title="编辑"
+              @click="handleEdit(p.id)"
+              type="text">
+              <i class="my-icon-edit my-icon"></i>
+            </el-button>
+            <el-button
+              style="position: absolute; top: 0; right: 10px;"
+              v-if="settingShow && permission.del"
+              size="mini"
+              title="删除"
+              @click="handleDelete(p.id)"
+              type="text">
+              <i class="my-icon-del my-icon"></i>
+            </el-button>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
     <!-- 分页 -->
     <div class="pagedv">
       <el-pagination
@@ -46,33 +61,23 @@
         :total="page.totalPage">
       </el-pagination>
     </div>
-    <!-- 添加用户 -->
-    <el-dialog title="添加用户" :visible.sync="addBoxShow" class="myBox" width="500px">
+    <!-- 添加人员 -->
+    <el-dialog title="添加人员" :visible.sync="addBoxShow" class="myBox" width="500px">
       <el-form :model="addForm">
-        <el-form-item label="用户名：" :label-width="formLabelWidth" required>
-          <el-input v-model="addForm.username"></el-input>
-        </el-form-item>
-        <el-form-item label="密码：" :label-width="formLabelWidth" required>
-          <el-input v-model="addForm.password" :type="passwordType">
-            <el-button slot="append" @mouseover.native="changePasswordType('text')"
-                       @mouseout.native="changePasswordType('password')" icon="el-icon-view"></el-button>
-          </el-input>
-        </el-form-item>
         <el-form-item label="姓名：" :label-width="formLabelWidth" required>
-          <el-input v-model="addForm.name"></el-input>
+          <el-input v-model="addForm.personName"></el-input>
         </el-form-item>
-        <el-form-item label="手机号：" :label-width="formLabelWidth" required>
-          <el-input v-model="addForm.phone"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱：" :label-width="formLabelWidth">
-          <el-input v-model="addForm.email"></el-input>
-        </el-form-item>
-        <el-form-item label="所属角色：" :label-width="formLabelWidth" required>
-          <el-select v-model="addForm.roleId" placeholder="请选择所属角色">
-            <template v-for="role in roleList">
-              <el-option :label="role.roleName" :value="role.roleId"></el-option>
-            </template>
-          </el-select>
+        <el-form-item label="人员正脸照：" required>
+          <el-upload
+            class="avatar-uploader"
+            action=""
+            :multiple="false"
+            accept="image/*"
+            :show-file-list="false"
+            :before-upload="beforeAvatarUpload">
+            <img v-if="imageBase64" :src="imageBase64" class="avatar">
+            <i class="avatar-uploader-icon el-icon-plus" v-else></i>
+          </el-upload>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -80,27 +85,23 @@
         <el-button @click="addBoxShow = false">取 消</el-button>
       </div>
     </el-dialog>
-    <!-- 编辑用户 -->
-    <el-dialog title="编辑用户" :visible.sync="editBoxShow" class="myBox" width="500px">
+    <!-- 编辑人员 -->
+    <el-dialog title="编辑人员" :visible.sync="editBoxShow" class="myBox" width="500px">
       <el-form :model="editForm">
-        <el-form-item label="用户名：" :label-width="formLabelWidth" required>
-          <el-input v-model="editForm.username" disabled></el-input>
-        </el-form-item>
         <el-form-item label="姓名：" :label-width="formLabelWidth" required>
-          <el-input v-model="editForm.name"></el-input>
+          <el-input v-model="editForm.personName"></el-input>
         </el-form-item>
-        <el-form-item label="手机号：" :label-width="formLabelWidth" required>
-          <el-input v-model="editForm.phone"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱：" :label-width="formLabelWidth">
-          <el-input v-model="editForm.email"></el-input>
-        </el-form-item>
-        <el-form-item label="所属角色：" :label-width="formLabelWidth" required>
-          <el-select v-model="editForm.roleId" filterable placeholder="请选择所属角色">
-            <template v-for="role in roleList">
-              <el-option :label="role.roleName" :value="role.roleId"></el-option>
-            </template>
-          </el-select>
+        <el-form-item label="人员正脸照：" required>
+          <el-upload
+            class="avatar-uploader"
+            action=""
+            :multiple="false"
+            accept="image/*"
+            :show-file-list="false"
+            :before-upload="beforeAvatarUpload">
+            <img v-if="imageBase64" :src="imageBase64" class="avatar">
+            <i class="avatar-uploader-icon el-icon-plus" v-else></i>
+          </el-upload>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -122,55 +123,62 @@
     name: "User",
     data: function () {
       return {
-        vtest: '',
+        settingShow: false,
+        imageBase64: null,
         permission:{
           add:false,
           edit: false,
           del: false,
-          enable: false,
-          disable: false,
-          passwordReset: false
         },
         passwordType: 'password',
         addBoxShow: false,
         editBoxShow: false,
-        currentPage: 3,
         formLabelWidth: '100px',
-        roleList: [],
+        personList: [],
         page: {
           currentPage: 1,
-          pageSize: 10,
+          pageSize: 16,
           totalPage: 0,
           offset: 0
         },
         searchForm: {
-          username: null,
-          name: null,
-          phone: null,
-          status: null,
-          roleId: null
+          personName: null,
         },
         addForm: {
-          username: null,
-          password: '123456',
-          name: null,
-          phone: null,
-          email: null,
-          roleId: null
+          personName: null,
+          personImage: null
         },
         editForm: {
-          userId: null,
-          name: null,
-          phone: null,
-          email: null,
-          roleId: null
-        },
-        tableData: []
+          personName: null,
+          personImage: null
+        }
       };
     },
     methods: {
-      changePasswordType(type) {
-        this.passwordType = type;
+      beforeAvatarUpload(file){
+        this.addForm.personImage = "";
+        this.imageBase64 = "";
+        const type = file.type;
+        const isLt2M = file.size / 1024 / 1024 < 1;
+        const isIMG = (type === 'image/jpeg') || (type === 'image/jpg') || (type === 'image/png');
+        if (!isIMG) {
+          this.$message.error('上传图片只能是 JPEG,JPG,PNG 格式!');
+          return false;
+        }
+        if (!isLt2M) {
+          this.$message.error('上传图片大小不能超过 1MB!');
+          return false;
+        }
+        let self = this;
+        const loading = self.$loading(self.loadingOptions);
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(evt){ //读取完文件之后会回来这里
+          loading.close();
+          self.imageBase64 = evt.target.result;
+          self.addForm.personImage = self.imageBase64.substring(self.imageBase64.indexOf(",") + 1);
+        };
+        return false;
       },
       handleCurrentChange: function (currentPage) {
         this.page.offset = (currentPage - 1) * this.page.pageSize;
@@ -178,16 +186,13 @@
       },
       addUser(){
         this.addForm = {
-          username: null,
-          password: '123456',
-          name: null,
-          phone: null,
-          email: null,
-          roleId: null
+          personName: null,
+          personImage: null
         };
+        this.imageBase64 = '';
         this.addBoxShow = true
       },
-      addSure() {//添加账号，确定
+      addSure() {//添加人员，确定
         let self = this;
         let url = '/api/face/admin/person/add';
         self.post(url, self.addForm, function () {
@@ -196,16 +201,18 @@
           self.addBoxShow = false;
         });
       },
-      handleEdit(userId) {//编辑账号，打开
+      handleEdit(personId) {//编辑人员，打开
         let self = this;
-        let url = '/api/face/admin/person/detail/' + userId;
+        let url = '/api/face/admin/person/detail/' + personId;
         self.get(url, function (data) {
           self.editForm = data;
-          self.search();
+          self.imageBase64 = data.personImage;
+          self.editForm.personImage = self.imageBase64.substring(self.imageBase64.indexOf(',') + 1);
+          self.editForm.createTime = null;
           self.editBoxShow = true;
         });
       },
-      editSure() {//编辑账号，确定
+      editSure() {//编辑人员，确定
         let self = this;
         let url = '/api/face/admin/person/update';
         self.post(url, self.editForm, function () {
@@ -214,65 +221,8 @@
           self.editBoxShow = false;
         });
       },
-      enableUser(userId) {
-        let self = this;
-        let url = '/api/face/admin/person/enable/' + userId;
-        self.get(url, function () {
-          self.search();
-          self.$message.success('启用成功');
-        });
-      },
-      disableUser(user) {
-        if (localStorage.getItem('userId') === user.userId) {
-          this.$message.warning('不可停用当前登录用户');
-          return;
-        }
-        let self = this;
-        let url = '/api/face/admin/person/disable/' + user.userId;
-        self.get(url, function () {
-          self.search();
-          self.$message.success('停用成功');
-        });
-      },
-      handleReset(userId) {  //重置密码
-        this.$confirm('', '是否重置密码？', {
-          confirmButtonText: '确 认',
-          cancelButtonText: '取 消',
-          type: 'warning',
-          center: true,
-          showClose: false,
-          customClass: 'delBox resetBox'
-        }).then(() => {
-          let self = this;
-          let url = '/api/face/admin/person/password/reset/' + userId;
-          self.get(url, function (data) {
-            const h = self.$createElement;
-            self.$msgbox({
-              center: true,
-              customClass: 'delBox resetedBox',
-              message: h('p', null, [
-                h('span', null, '密码重置成功，新密码为： '),
-                h('i', {style: 'color: red'}, data)
-              ]),
-              confirmButtonText: '确定',
-            }).then(action => {
-              let self = this;
-              self.$message.success('重置成功');
-            });
-          });
-        }).catch(() => {
-        });
-      },
-      handleDelete(user) {
-        if (localStorage.getItem('userId') === user.userId) {
-          this.$message.warning('不可删除当前登录用户');
-          return;
-        }
-        if (user.status === 1) {
-          this.$message.warning('该用户启用中,请停用后再删除');
-          return;
-        }
-        this.$confirm('', '确认删除此用户？', {
+      handleDelete(personId) {
+        this.$confirm('', '确认删除此人员？', {
           confirmButtonText: '确 认',
           cancelButtonText: '取 消',
           type: 'warning',
@@ -281,7 +231,7 @@
           customClass: 'delBox'
         }).then(() => {
           let self = this;
-          let url = '/api/face/admin/person/delete/' + user.userId;
+          let url = '/api/face/admin/person/delete/' + personId;
           self.get(url, function () {
             self.search();
             self.$message.success('删除成功');
@@ -289,21 +239,14 @@
         }).catch(() => {
         });
       },
-      searchRoleList() {
-        let self = this;
-        let url = '/api/system/role/list';
-        self.post(url, {}, function (data) {
-          self.roleList = data;
-        });
-      },
-      searchUserList(resetPage) {
+      searchPersonList(resetPage) {
         let self = this;
         if (resetPage) {
           self.page.offset = 0;
         }
         let url = '/api/face/admin/person/list/page?offset=' + self.page.offset + '&limit=' + self.page.pageSize;
         self.post(url, self.searchForm, function (data) {
-          self.tableData = data.rows;
+          self.personList = data.rows;
           self.page.totalPage = data.total;  //信息总条数
         });
       },
@@ -328,22 +271,17 @@
         });
       },
       search(resetPage) {
-        this.searchRoleList();
-        this.searchUserList(resetPage);
+        this.searchPersonList(resetPage);
       },
       resetSearch() {
         this.page = {
           currentPage: 1,
-          pageSize: 10,
+          pageSize: 16,
           totalPage: 0,
           offset: 0
         };
         this.searchForm = {
-          username: null,
-          name: null,
-          phone: null,
-          status: null,
-          roleId: null
+          personName: null,
         };
         this.search();
       }
@@ -359,7 +297,61 @@
     }
   };
 </script>
+<style>
+  .time {
+    font-size: 10px;
+    color: #999;
+  }
 
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
+  }
+
+  .avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+</style>
 
 
 
