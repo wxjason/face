@@ -26,12 +26,18 @@ public class RoleAo extends BaseAo {
 
     private String remark;
 
+    private Object createTime;
+
+    private Object menuIds;
+
     @Override
     public String toString() {
         return "RoleAo{" +
                 "roleId='" + roleId + '\'' +
                 ", roleName='" + roleName + '\'' +
                 ", remark='" + remark + '\'' +
+                ", createTime=" + createTime +
+                ", menuIds=" + menuIds +
                 '}';
     }
 }

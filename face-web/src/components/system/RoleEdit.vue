@@ -98,6 +98,7 @@
           let menuIds = self.common.arrayIntersection(data.menuIds.sort(self.arraySort), self.$refs.menuTree.getCheckedKeys().sort(self.arraySort));
           self.$refs.menuTree.setCheckedKeys(menuIds);
           data.menuIds = null;
+          data.createTime = null;
           self.editForm = data;
         });
       }
