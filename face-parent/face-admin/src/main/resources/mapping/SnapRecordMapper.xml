@@ -8,12 +8,23 @@
         <result column="person_name" property="personName" />
         <result column="person_image" property="personImage" />
         <result column="snap_image" property="snapImage" />
+        <result column="similar" property="similar" />
         <result column="create_time" property="createTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS id, person_name AS personName, person_image AS personImage, snap_image AS snapImage, create_time AS createTime
+        id AS id, person_name AS personName, person_image AS personImage, snap_image AS snapImage, similar AS similar, create_time AS createTime
     </sql>
+    <select id="findListByPage" resultType="cn.wxj.face.admin.entity.SnapRecord">
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM ad_snap_record
+        WHERE 1 = 1
+        <if test="snapRecord.personName != null and snapRecord.personName != ''">
+            AND person_name LIKE concat('%', #{snapRecord.personName},'%')
+        </if>
+        ORDER BY create_time DESC
+    </select>
 
 </mapper>

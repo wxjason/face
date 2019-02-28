@@ -110,7 +110,7 @@ public class FaceApiService {
             return null;
         }
         SearchUser searchUser = new SearchUser();
-        searchUser.setScore(user.getScore());
+        searchUser.setScore(user.getScore() / 100.0);
         searchUser.setUserId(user.getUser_id());
         return searchUser;
     }

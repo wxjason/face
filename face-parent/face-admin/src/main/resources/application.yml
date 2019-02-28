@@ -5,6 +5,8 @@ server:
 
 image.save.path: /webapp/face/images/
 
+compare.min.similar: 0.5
+
 # face-api相关配置
 face:
   api:

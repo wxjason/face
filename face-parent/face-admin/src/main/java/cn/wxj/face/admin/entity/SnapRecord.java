@@ -2,6 +2,7 @@ package cn.wxj.face.admin.entity;
 
 import java.io.Serializable;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
@@ -35,7 +36,7 @@ public class SnapRecord extends Model<SnapRecord> {
     /**
      * 主键ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.INPUT)
     private String id;
     /**
      * 人员名称
@@ -52,8 +53,13 @@ public class SnapRecord extends Model<SnapRecord> {
      */
     @TableField("snap_image")
     private String snapImage;
+    /**
+     * 抓拍图片
+     */
+    @TableField("similar")
+    private Integer similar;
     @TableField("create_time")
-    private Date createTime;
+    private LocalDateTime createTime;
 
 
     public static final String ID = "id";
@@ -63,6 +69,8 @@ public class SnapRecord extends Model<SnapRecord> {
     public static final String PERSON_IMAGE = "person_image";
 
     public static final String SNAP_IMAGE = "snap_image";
+
+    public static final String SIMILAR = "similar";
 
     public static final String CREATE_TIME = "create_time";
 

@@ -400,7 +400,11 @@ public class FileUtils {
                 }
             }
             //生成jpeg图片
-            OutputStream out = new FileOutputStream(path);
+            File file = new File(path);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            OutputStream out = new FileOutputStream(file);
             out.write(b);
             out.flush();
             out.close();

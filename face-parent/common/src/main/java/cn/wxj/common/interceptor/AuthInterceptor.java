@@ -34,6 +34,8 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     private static final String FACE_ADMIN_URI = "/face/admin";
 
+    private static final String SNAP_URI = "/face/admin/snap/image";
+
     private static final String[] ACCESS_URIS = {"/login", "/download", "/operation/log/add"};
 
     @Autowired
@@ -42,6 +44,9 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
+        if (uri.contains(SNAP_URI)) {
+            return true;
+        }
         for (String accessUri : ACCESS_URIS) {
             if (uri.contains(accessUri)) {
                 return true;
@@ -91,6 +96,9 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
         String uri = request.getRequestURI();
+        if (uri.contains(SNAP_URI)) {
+            return;
+        }
         if (!uri.startsWith(SYSTEM_URI) && !uri.startsWith(FACE_ADMIN_URI)) {
             return;
         }

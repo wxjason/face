@@ -5,6 +5,7 @@ import Router from 'vue-router';
 import Home from '../components/Home.vue';
 
 // admin
+import SnapRecord from '../components/admin/SnapRecord.vue';
 import Person from '../components/admin/Person.vue';
 
 // system
@@ -44,6 +45,11 @@ export default new Router({
           path: '/home',
           name: 'Home',
           component: Home
+        },
+        {
+          path: '/admin/snap/record',
+          name: 'SnapRecord',
+          component: SnapRecord
         },
         {
           path: '/admin/person',

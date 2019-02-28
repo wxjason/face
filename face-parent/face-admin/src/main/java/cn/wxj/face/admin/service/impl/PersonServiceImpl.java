@@ -2,12 +2,9 @@ package cn.wxj.face.admin.service.impl;
 
 import cn.wxj.common.constant.StringConstants;
 import cn.wxj.common.enumeration.Delete;
-import cn.wxj.common.enumeration.ExceptionType;
-import cn.wxj.common.exception.TceException;
 import cn.wxj.common.util.DateUtils;
 import cn.wxj.common.util.FileUtils;
 import cn.wxj.common.util.HttpUtils;
-import cn.wxj.common.util.StringUtils;
 import cn.wxj.face.admin.entity.Person;
 import cn.wxj.face.admin.mapper.PersonMapper;
 import cn.wxj.face.admin.service.IPersonService;
@@ -18,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.List;
 
 /**
@@ -32,16 +28,21 @@ import java.util.List;
 @Service
 public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> implements IPersonService {
 
-    @Autowired
-    private FaceApiService faceApiService;
+    private final FaceApiService faceApiService;
 
-    @Value("${image.save.path:'/webapp/face/images/'}")
-    private String imageSavePath;
+    private final String personImageSavePath;
+
+    @Autowired
+    public PersonServiceImpl(FaceApiService faceApiService,
+                             @Value("${image.save.path:'/webapp/face/images/'}") String imageSavePath) {
+        this.faceApiService = faceApiService;
+        this.personImageSavePath = imageSavePath + "person/";
+    }
 
     @Override
     public String addPerson(Person person) {
         String personId = faceApiService.addUser(person.getPersonImage());
-        String imagePath = imageSavePath + personId + StringConstants.DOT + FileUtils.IMAGE_TYPE_JPG;
+        String imagePath = personImageSavePath + personId + StringConstants.DOT + FileUtils.IMAGE_TYPE_JPG;
         person.setId(personId);
         String image = FileUtils.process(person.getPersonImage(), 800, 800);
         FileUtils.saveImageBase64(image, imagePath);
@@ -56,7 +57,7 @@ public class PersonServiceImpl extends ServiceImpl<PersonMapper, Person> impleme
     @Override
     public void updatePerson(Person person) {
         faceApiService.updateUser(person.getId(), person.getPersonImage());
-        String imagePath = imageSavePath + person.getId() + StringConstants.DOT + FileUtils.IMAGE_TYPE_JPG;
+        String imagePath = personImageSavePath + person.getId() + StringConstants.DOT + FileUtils.IMAGE_TYPE_JPG;
         String image = FileUtils.process(person.getPersonImage(), 800, 800);
         FileUtils.saveImageBase64(image, imagePath);
         person.setPersonImage(imagePath);

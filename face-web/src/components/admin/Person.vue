@@ -19,37 +19,39 @@
     </el-form>
     <!-- 数据表 -->
     <el-row :gutter="20">
-      <el-col v-on:mouseout.native="settingShow = false"
-              v-on:mouseover.native="settingShow = true"
-              :span="3" v-for="p in personList" style="margin-bottom:10px;position: relative;height: 50%!important;">
-        <el-card :body-style="{ padding: '0px' }">
-          <img :src="p.personImage" class="image">
-          <div style="padding: 14px;text-align: center;">
-            <span>{{p.personName}}</span>
-            <div class="bottom clearfix">
-              <time class="time">{{p.createTime}}</time>
+      <template v-for="p in personList">
+        <el-col v-on:mouseout.native="settingShow = false"
+                v-on:mouseover.native="settingShow = true"
+                :span="3" style="margin-bottom:10px;position: relative;height: 50%!important;">
+          <el-card :body-style="{ padding: '0px' }">
+            <img :src="p.personImage" class="image">
+            <div style="padding: 14px;text-align: center;">
+              <span>{{p.personName}}</span>
+              <div class="bottom clearfix">
+                <time class="time">{{p.createTime}}</time>
+              </div>
+              <el-button
+                style="position: absolute; top: 0; right: 30px;"
+                v-if="settingShow && permission.edit"
+                size="mini"
+                title="编辑"
+                @click="handleEdit(p.id)"
+                type="text">
+                <i class="my-icon-edit my-icon"></i>
+              </el-button>
+              <el-button
+                style="position: absolute; top: 0; right: 10px;"
+                v-if="settingShow && permission.del"
+                size="mini"
+                title="删除"
+                @click="handleDelete(p.id)"
+                type="text">
+                <i class="my-icon-del my-icon"></i>
+              </el-button>
             </div>
-            <el-button
-              style="position: absolute; top: 0; right: 30px;"
-              v-if="settingShow && permission.edit"
-              size="mini"
-              title="编辑"
-              @click="handleEdit(p.id)"
-              type="text">
-              <i class="my-icon-edit my-icon"></i>
-            </el-button>
-            <el-button
-              style="position: absolute; top: 0; right: 10px;"
-              v-if="settingShow && permission.del"
-              size="mini"
-              title="删除"
-              @click="handleDelete(p.id)"
-              type="text">
-              <i class="my-icon-del my-icon"></i>
-            </el-button>
-          </div>
-        </el-card>
-      </el-col>
+          </el-card>
+        </el-col>
+      </template>
     </el-row>
     <!-- 分页 -->
     <div class="pagedv">
@@ -120,7 +122,7 @@
     DEL: '/face/admin/person/delete',
   };
   export default {
-    name: "User",
+    name: "Person",
     data: function () {
       return {
         settingShow: false,
