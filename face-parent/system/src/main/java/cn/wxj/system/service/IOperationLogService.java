@@ -38,6 +38,7 @@ public interface IOperationLogService extends IService<OperationLog> {
      * 根据条件创建操作日志导入Excel文件并返回文件全路径
      * @param excelId
      * @return String
+     * @throws FileNotFoundException
      */
     String createExcelFile(String excelId) throws FileNotFoundException;
 }

@@ -25,5 +25,10 @@ public interface IExcelTextTempService extends IService<ExcelTextTemp> {
      */
     void clearExcelText();
 
+    /**
+     * 存Excel缓存信息
+     * @param text
+     * @return
+     */
     String saveExcelText(String text);
 }

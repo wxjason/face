@@ -1,5 +1,6 @@
 package cn.wxj.common.util;
 
+import cn.wxj.common.constant.NumberConstants;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
@@ -22,6 +23,10 @@ public class RegexUtils {
 	 */
 	public final static Pattern IPV4 = Pattern.compile("\\b((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\.((?!\\d\\d\\d)\\d+|1\\d\\d|2[0-4]\\d|25[0-5])\\b");
 
+	/**
+	 * 数字
+	 */
+	public static final Pattern NUMBER_PATTERN = Pattern.compile("[^0-9]");
 	/**
      * 邮箱正则
      */
@@ -73,8 +78,8 @@ public class RegexUtils {
 		return match(RE_NUMBER, num);
 	}
 	public static int number(String str){
-		Pattern pattern = Pattern.compile("[^0-9]");
-		Matcher matcher = pattern.matcher(str);
+
+		Matcher matcher = NUMBER_PATTERN.matcher(str);
 		String number = matcher.replaceAll("");
 		return Integer.parseInt(number);
 	}
@@ -85,10 +90,10 @@ public class RegexUtils {
 	 * @return
 	 */
 	public static boolean version(String str){
-		if(str.startsWith("v")){
+		String v = "v";
+		if(str.startsWith(v)){
 			String s = str.substring(1,2);
-			Pattern pattern = Pattern.compile("[0-9]");
-			return pattern.matcher(s).matches();
+			return NUMBER_PATTERN.matcher(s).matches();
 		}
 		return false;
 	}
@@ -142,7 +147,8 @@ public class RegexUtils {
 	 * @return
 	 */
 	public static boolean matchPhone(String phone){
-		if(matchNumber(phone) && StringUtils.isNotEmpty(phone) && phone.length() <= 20){
+	    int t = 20;
+		if(matchNumber(phone) && StringUtils.isNotEmpty(phone) && phone.length() <= t){
 			return true;
 		}
 		return false;

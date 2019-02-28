@@ -54,6 +54,10 @@ public interface NumberConstants {
      * 14
      */
     int FOURTEEN = 14;
+    /**
+     * 15
+     */
+    int FIFTEEN = 15;
 
     /**
      * 16
@@ -64,6 +68,11 @@ public interface NumberConstants {
      * 17
      */
     int SEVENTEEN = 17;
+
+    /**
+     * 18
+     */
+    int EIGHTEEN = 18;
 
     /**
      * 30

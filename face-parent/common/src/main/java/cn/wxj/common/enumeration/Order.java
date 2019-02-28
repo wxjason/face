@@ -8,6 +8,9 @@ package cn.wxj.common.enumeration;
  */
 public enum Order {
 
+    /**
+     *
+     */
     ASC("asc"), DESC("desc");
 
     private String des;

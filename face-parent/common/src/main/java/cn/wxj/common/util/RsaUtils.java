@@ -1,6 +1,6 @@
 package cn.wxj.common.util;
 
-import cn.wxj.common.bean.rsa.RSA;
+import cn.wxj.common.bean.rsa.Rsa;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import javax.crypto.Cipher;
@@ -12,19 +12,19 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * @ClassName: RSAUtils
+ * @ClassName: RsaUtils
  * @Package cn.wxj.common.util
  * @Description:
  * @Author wuxinjian
  * @Date 2018/12/18 11:09
  * @Version V1.0
  */
-public class RSAUtils {
+public class RsaUtils {
 
     /**
      * 非对称密钥算法
      */
-    public static final String KEY_ALGORITHM = "RSA";
+    public static final String KEY_ALGORITHM = "Rsa";
 
 
     /**
@@ -50,7 +50,7 @@ public class RSAUtils {
      *
      * @return Map 甲方密钥的Map
      */
-    public static RSA initKey() throws Exception {
+    public static Rsa initKey() throws Exception {
         //实例化密钥生成器
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(KEY_ALGORITHM);
         //初始化密钥生成器
@@ -62,7 +62,7 @@ public class RSAUtils {
         //甲方私钥
         RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
         //将密钥存储在Bean中
-        RSA rsa = new RSA();
+        Rsa rsa = new Rsa();
         rsa.setPublicKey(publicKey);
         rsa.setPrivateKey(privateKey);
         return rsa;
@@ -160,7 +160,7 @@ public class RSAUtils {
      * @param rsa 密钥map
      * @return String 私钥
      */
-    public static String getPrivateKey(RSA rsa) {
+    public static String getPrivateKey(Rsa rsa) {
         Key key = rsa.getPrivateKey();
         return Base64.encodeBase64String(key.getEncoded());
     }
@@ -171,7 +171,7 @@ public class RSAUtils {
      * @param rsa 密钥map
      * @return String 公钥
      */
-    public static String getPublicKey(RSA rsa) {
+    public static String getPublicKey(Rsa rsa) {
         Key key = rsa.getPublicKey();
         return Base64.encodeBase64String(key.getEncoded());
     }
@@ -264,12 +264,12 @@ public class RSAUtils {
     public static void main(String[] args) throws Exception {
         //初始化密钥
         //生成密钥对
-        RSA rsa = RSAUtils.initKey();
+        Rsa rsa = RsaUtils.initKey();
         //公钥
-        String publicKey = RSAUtils.getPublicKey(rsa);
+        String publicKey = RsaUtils.getPublicKey(rsa);
 
         //私钥
-        String privateKey = RSAUtils.getPrivateKey(rsa);
+        String privateKey = RsaUtils.getPrivateKey(rsa);
         System.out.println("公钥：/n" + publicKey);
         System.out.println("私钥：/n" + privateKey);
 
@@ -279,14 +279,15 @@ public class RSAUtils {
 
         System.out.println("================密钥对构造完毕,甲方将公钥公布给乙方，开始进行加密数据的传输=============");
         String str = "RSA密码交换算法";
+        ///
 //        System.out.println("/n===========甲方向乙方发送加密数据==============");
 //        System.out.println("原文:" + str);
 //        //甲方进行数据的加密
-//        String code1 = RSAUtils.encryptByPrivateKey(str, privateKey);
+//        String code1 = RsaUtils.encryptByPrivateKey(str, privateKey);
 //        System.out.println("加密后的数据：" + code1);
 //        System.out.println("===========乙方使用甲方提供的公钥对数据进行解密==============");
 //        //乙方进行数据的解密
-//        String decode1 = RSAUtils.decryptByPublicKey(code1, publicKey);
+//        String decode1 = RsaUtils.decryptByPublicKey(code1, publicKey);
 //        System.out.println("乙方解密后的数据：" + decode1 + "/n/n");
 //
 //        System.out.println("===========反向进行操作，乙方向甲方发送数据==============/n/n");
@@ -296,7 +297,7 @@ public class RSAUtils {
         System.out.println("原文:" + str);
 
         //乙方使用公钥对数据进行加密
-        String code2 = RSAUtils.encryptSubByPublicKey(str, publicKey);
+        String code2 = RsaUtils.encryptSubByPublicKey(str, publicKey);
         System.out.println("===========乙方使用公钥对数据进行加密==============");
         System.out.println("加密后的数据：" + code2);
 
@@ -304,7 +305,7 @@ public class RSAUtils {
         System.out.println("===========甲方使用私钥对数据进行解密==============");
 
         //甲方使用私钥对数据进行解密
-        String decode2 = RSAUtils.decryptSubByPrivateKey(code2, privateKey);
+        String decode2 = RsaUtils.decryptSubByPrivateKey(code2, privateKey);
 
         System.out.println("甲方解密后的数据：" + decode2);
     }

@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 /**
  * 读写Excel
  * 如果Excel 不存在 需要先调用createExcel 创建Excel
+ * @author wxjason
  */
 @Slf4j
 public class ExcelUtils {
@@ -207,9 +208,11 @@ public class ExcelUtils {
         Workbook wb = null;
         String fileType = fileName.substring(fileName.lastIndexOf("."));
         if (OFFICE_EXCEL_2003_POSTFIX.equals(fileType)) {
-            wb = new HSSFWorkbook(inStr); // 2003-
+            // 2003-
+            wb = new HSSFWorkbook(inStr);
         } else if (OFFICE_EXCEL_2007_POSTFIX.equals(fileType)) {
-            wb = new XSSFWorkbook(inStr); // 2007+
+            // 2007+
+            wb = new XSSFWorkbook(inStr);
         } else {
             throw new Exception("解析的文件格式有误!");
         }
@@ -260,9 +263,11 @@ public class ExcelUtils {
         try {
             String fileType = fileName.substring(fileName.lastIndexOf("."));
             if (OFFICE_EXCEL_2003_POSTFIX.equals(fileType)) {
-                wb = new HSSFWorkbook(); // 2003-
+                // 2003-
+                wb = new HSSFWorkbook();
             } else if (OFFICE_EXCEL_2007_POSTFIX.equals(fileType)) {
-                wb = new XSSFWorkbook(); // 2007+
+                // 2007+
+                wb = new XSSFWorkbook();
             } else {
                 throw new Exception("错误的Excel后缀,创建失败!");
             }
@@ -333,31 +338,37 @@ public class ExcelUtils {
 
             String fileType = fileName.substring(fileName.lastIndexOf("."));
             if (OFFICE_EXCEL_2003_POSTFIX.equals(fileType)) {
-                wb = new HSSFWorkbook(fs); // 2003-
+                // 2003-
+                wb = new HSSFWorkbook(fs);
             } else if (OFFICE_EXCEL_2007_POSTFIX.equals(fileType)) {
-                wb = new XSSFWorkbook(fs); // 2007+
+                // 2007+
+                wb = new XSSFWorkbook(fs);
             } else {
                 throw new Exception("错误的Excel后缀,创建失败!");
             }
-            Sheet sheet = wb.getSheetAt(sheetIndex); // 获取到工作表，因为一个excel可能有多个工作表
-            fos = new FileOutputStream(fileName); // 向d://test.xls中写数据
+            // 获取到工作表，因为一个excel可能有多个工作表
+            Sheet sheet = wb.getSheetAt(sheetIndex);
+            // 向d://test.xls中写数据
+            fos = new FileOutputStream(fileName);
             int rowIndex = sheet.getLastRowNum();
             if (rowIndex > 0) {
                 rowIndex++;
             }
-            //第一行字段为key
+            //第一行字段为key// 在现有行号后追加数据
             if (rowIndex == 0) {
-                Row row = sheet.createRow(rowIndex); // 在现有行号后追加数据
+                Row row = sheet.createRow(rowIndex);
                 for (int j = 0; j < key.length; j++) {
                     row.createCell(j).setCellValue(Objects.isNull(key[j]) ? "" : String.valueOf(key[j]));
                 }
                 rowIndex++;
             }
             for (List<Object> item : data) {
-                Row row = sheet.createRow(rowIndex); // 在现有行号后追加数据
+                // 在现有行号后追加数据
+                Row row = sheet.createRow(rowIndex);
                 //后面字段 value　值
                 for (int i = 0; i < key.length; i++) {
-                    row.createCell(i).setCellValue(Objects.isNull(item.get(i)) ? "" : String.valueOf(item.get(i))); // 设置第一个（从0开始）单元格的数据
+                    // 设置第一个（从0开始）单元格的数据
+                    row.createCell(i).setCellValue(Objects.isNull(item.get(i)) ? "" : String.valueOf(item.get(i)));
                 }
                 rowIndex++;
             }

@@ -51,10 +51,9 @@ public class SafeUtils {
 		String rlt = null;
 
 		if (null != value) {
-			// NOTE: It's highly recommended to use the ESAPI library and uncomment the following line to
+			/// NOTE: It's highly recommended to use the ESAPI library and uncomment the following line to
 			// avoid encoded attacks.
 			// value = ESAPI.encoder().canonicalize(value);
-
 			// Avoid null characters
 			rlt = value.replaceAll("", "");
 
@@ -62,14 +61,8 @@ public class SafeUtils {
 			rlt = SCRIPT_PATTERN_1.matcher(rlt).replaceAll("");
 
 			// Avoid anything in a src='...' type of expression
-			/*SCRIPT_PATTERN = Pattern.compile("src[\r\n]*=[\r\n]*\\\'(.*?)\\\'", Pattern.CASE_INSENSITIVE
-					| Pattern.MULTILINE | Pattern.DOTALL);
-			rlt = SCRIPT_PATTERN.matcher(rlt).replaceAll("");
 
-			SCRIPT_PATTERN = Pattern.compile("src[\r\n]*=[\r\n]*\\\"(.*?)\\\"", Pattern.CASE_INSENSITIVE
-					| Pattern.MULTILINE | Pattern.DOTALL);
-			rlt = SCRIPT_PATTERN.matcher(rlt).replaceAll("");*/
-
+			/// e
 			// Remove any lonesome </script> tag
 			rlt = SCRIPT_PATTERN_2.matcher(rlt).replaceAll("");
 

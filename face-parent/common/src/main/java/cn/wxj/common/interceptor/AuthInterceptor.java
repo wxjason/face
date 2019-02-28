@@ -26,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 public class AuthInterceptor implements HandlerInterceptor {
 
+    private static final String UNKNOWN = "unknown";
+
     private static final String WRITE_LOG_URI = "/operation/log/add";
 
     private static final String SYSTEM_URI = "/system";
@@ -126,19 +128,19 @@ public class AuthInterceptor implements HandlerInterceptor {
 
         log.info("IP from => X-Real-IP:{}", ip);
         // 下面的属于固定格式
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("X-Forwarded-For");
             log.info("IP from => X-Forwarded-For:{}", ip);
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
             log.info("IP from => Proxy-Client-IP:{}", ip);
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
             log.info("IP from => WL-Proxy-Client-IP:{}", ip);
         }
-        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+        if (ip == null || ip.length() == 0 || UNKNOWN.equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
             log.info("IP from => getRemoteAddr:{}", ip);
         }

@@ -2,6 +2,10 @@ package cn.wxj.common.enumeration;
 
 import java.util.Objects;
 
+/**
+ * @author wxjason
+ */
+
 public enum Result {
 
     /**

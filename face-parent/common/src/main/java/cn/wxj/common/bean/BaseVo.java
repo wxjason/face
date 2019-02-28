@@ -7,6 +7,9 @@ package cn.wxj.common.bean;/*
 
 import java.io.Serializable;
 
+/**
+ * @author wxjason
+ */
 public class BaseVo implements Serializable {
     private static final long serialVersionUID = 1L;
 }

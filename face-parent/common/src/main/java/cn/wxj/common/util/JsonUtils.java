@@ -17,6 +17,7 @@ import static com.fasterxml.jackson.databind.SerializationFeature.FAIL_ON_EMPTY_
 
 /**
  * JSONUtils
+ * @author wxjason
  */
 public final class JsonUtils {
     public final static Integer NON_INDEX = -1;
@@ -178,7 +179,7 @@ public final class JsonUtils {
     }
 
     public static Map<String, Object> json2Map(String json) {
-        Map<String, Object> jsonMap = new HashMap<>();
+        Map jsonMap = new HashMap<>(16);
         jsonMap = json2Obj(json, jsonMap.getClass());
         return jsonMap;
     }

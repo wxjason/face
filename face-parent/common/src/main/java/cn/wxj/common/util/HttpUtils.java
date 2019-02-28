@@ -15,6 +15,7 @@
  */
 package cn.wxj.common.util;
 
+import cn.wxj.common.constant.NumberConstants;
 import cn.wxj.common.constant.StringConstants;
 import cn.wxj.common.wrapper.RequestWrapper;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -28,7 +29,12 @@ import java.net.*;
 import java.nio.charset.Charset;
 import java.util.*;
 
+/**
+ * @author wxjason
+ */
 public class HttpUtils {
+
+    private static final String UNKNOWN = "unknown";
 
     public static String getIp() {
         return getIpAddr(getRequest());
@@ -38,7 +44,7 @@ public class HttpUtils {
      * 获取所有请求的值
      */
     public static Map<String, String> getRequestParameters() {
-        HashMap<String, String> values = new HashMap<>();
+        HashMap<String, String> values = new HashMap<>(16);
         HttpServletRequest request = getRequest();
         Enumeration enums = request.getParameterNames();
         while (enums.hasMoreElements()) {
@@ -74,13 +80,13 @@ public class HttpUtils {
      */
     public static String getIpAddr(HttpServletRequest request) {
         String ipAddress = request.getHeader("x-forwarded-for");
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        if (ipAddress == null || ipAddress.length() == 0 || UNKNOWN.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("Proxy-Client-IP");
         }
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        if (ipAddress == null || ipAddress.length() == 0 || UNKNOWN.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getHeader("WL-Proxy-Client-IP");
         }
-        if (ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {
+        if (ipAddress == null || ipAddress.length() == 0 || UNKNOWN.equalsIgnoreCase(ipAddress)) {
             ipAddress = request.getRemoteAddr();
             if (ipAddress.equals(StringConstants.LOCAL_IPV4) || ipAddress.equals(StringConstants.LOCAL_IPV6)) {
                 //根据网卡取本机配置的IP
@@ -95,7 +101,7 @@ public class HttpUtils {
         }
         //对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
         //"***.***.***.***".length() = 15
-        if (ipAddress != null && ipAddress.length() > 15) {
+        if (ipAddress != null && ipAddress.length() > NumberConstants.FIFTEEN) {
             if (ipAddress.indexOf(StringConstants.COMMA) > 0) {
                 ipAddress = ipAddress.substring(0, ipAddress.indexOf(StringConstants.COMMA));
             }

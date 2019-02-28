@@ -124,7 +124,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             }
             if (Character.isUpperCase(c)) {
                 if (!isPreUpperCase || !isNextUpperCase) {
-                    if (i > 0) sb.append(UNDERLINE);
+                    if (i > 0) {
+                        sb.append(UNDERLINE);
+                    }
                 }
                 isPreUpperCase = true;
             } else {
@@ -164,8 +166,9 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
                 }
             }
             return sb.toString();
-        } else
+        } else {
             return name;
+        }
     }
 
     /**
@@ -173,9 +176,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String firstCharToUpperCase(String str) {
         char firstChar = str.charAt(0);
-        if (firstChar >= 'a' && firstChar <= 'z') {
+        char a = 'a';
+        char z = 'z';
+        if (firstChar >= a && firstChar <= z) {
             char[] arr = str.toCharArray();
-            arr[0] -= ('a' - 'A');
+            arr[0] -= (a - 'A');
             return new String(arr);
         }
         return str;
@@ -196,9 +201,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static String firstCharToLowerCase(String str) {
         char firstChar = str.charAt(0);
-        if (firstChar >= 'A' && firstChar <= 'Z') {
+        char a = 'A';
+        char z = 'Z';
+        if (firstChar >= a && firstChar <= z) {
             char[] arr = str.toCharArray();
-            arr[0] += ('a' - 'A');
+            arr[0] += ('a' - a);
             return new String(arr);
         }
         return str;

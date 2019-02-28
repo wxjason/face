@@ -10,6 +10,8 @@ package cn.wxj.common.util;/*
  * Created by wdj on 2017/6/21.
  */
 
+import cn.wxj.common.constant.NumberConstants;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -49,6 +51,7 @@ import java.util.Random;
  * 4.余数只可能有0 1 2 3 4 5 6 7 8 9 10这11个数字，分别对应的最后一位身份证的号码为：1 0 X 9 8 7 6 5 4 3
  * <p>
  * 我的Java学习交流QQ群：589809992 我们一起学Java！
+ * @author wxjason
  */
 public class IDCardUtils {
     /**
@@ -65,7 +68,7 @@ public class IDCardUtils {
      *     91 : 国外
      * </pre>
      */
-    final static String CITY_CODE[] = {"11", "12", "13", "14", "15", "21", "22", "23", "31", "32", "33", "34", "35", "36", "37", "41", "42", "43", "44", "45", "46", "50", "51", "52", "53", "54", "61", "62", "63", "64", "65", "71", "81", "82", "91"};
+    final static String[] CITY_CODE = {"11", "12", "13", "14", "15", "21", "22", "23", "31", "32", "33", "34", "35", "36", "37", "41", "42", "43", "44", "45", "46", "50", "51", "52", "53", "54", "61", "62", "63", "64", "65", "71", "81", "82", "91"};
 
     /**
      * 效验码
@@ -85,23 +88,28 @@ public class IDCardUtils {
      * @return 是否有效
      */
     public final static boolean isValid(String id) {
-        if (id == null)
+        if (id == null) {
             return false;
+        }
 
         int len = id.length();
-        if (len != 15 && len != 18)
+        if (len != NumberConstants.FIFTEEN && len != NumberConstants.EIGHTEEN) {
             return false;
+        }
 
         //校验区位码
-        if (!validCityCode(id.substring(0, 2)))
+        if (!validCityCode(id.substring(0, NumberConstants.TWO))) {
             return false;
+        }
 
         //校验生日
-        if (!validDate(id))
+        if (!validDate(id)) {
             return false;
+        }
 
-        if (len == 15)
+        if (len == NumberConstants.FIFTEEN) {
             return true;
+        }
 
         //校验位数
         return validParityBit(id);
@@ -113,12 +121,14 @@ public class IDCardUtils {
         int power = 0;
         for (int i = 0; i < cs.length; i++) {
             //最后一位可以是X
-            if (i == cs.length - 1 && cs[i] == 'X')
+            if (i == cs.length - 1 && cs[i] == 'X') {
                 break;
+            }
 
             // 非数字
-            if (cs[i] < '0' || cs[i] > '9')
+            if (cs[i] < '0' || cs[i] > '9') {
                 return false;
+            }
 
             // 加权求和
             if (i < cs.length - 1) {
@@ -133,8 +143,9 @@ public class IDCardUtils {
             String birth = id.length() == 15 ? "19" + id.substring(6, 12) : id.substring(6, 14);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             Date birthDate = sdf.parse(birth);
-            if (!birth.equals(sdf.format(birthDate)))
+            if (!birth.equals(sdf.format(birthDate))) {
                 return false;
+            }
         } catch (ParseException e) {
             return false;
         }
@@ -143,8 +154,9 @@ public class IDCardUtils {
 
     private static boolean validCityCode(String cityCode) {
         for (String code : CITY_CODE) {
-            if (code.equals(cityCode))
+            if (code.equals(cityCode)) {
                 return true;
+            }
         }
         return false;
     }
@@ -156,11 +168,13 @@ public class IDCardUtils {
      * @return
      */
     final public static String id15To18(String id) {
-        if (id == null || id.length() != 15)
+        if (id == null || id.length() != NumberConstants.FIFTEEN) {
             return null;
+        }
 
-        if (!isValid(id))
+        if (!isValid(id)) {
             return null;
+        }
 
         String id17 = id.substring(0, 6) + "19" + id.substring(6);
 
@@ -194,17 +208,20 @@ public class IDCardUtils {
         // 出生年
         String y = String.valueOf(rand(1950, Calendar.getInstance().get(Calendar.YEAR)));
         String m = String.valueOf(rand(1, 12));
-        if (m.length() == 1)
+        if (m.length() == 1) {
             m = "0" + m;
+        }
         String d = String.valueOf(rand(1, 28));
-        if (d.length() == 1)
+        if (d.length() == 1) {
             d = "0" + d;
+        }
 
         String idx = String.valueOf(rand(1, 999));
-        if (idx.length() == 1)
+        if (idx.length() == 1) {
             idx = "00" + idx;
-        else if (idx.length() == 2)
+        } else if (idx.length() == NumberConstants.TWO) {
             idx = "0" + idx;
+        }
 
         body += y + m + d + idx;
 
@@ -235,16 +252,19 @@ public class IDCardUtils {
     	
     	if(isValid(idCardNo)){
     		//15位身份证号
-    		if(15 == idCardNo.length()) {
+    		if(NumberConstants.FIFTEEN == idCardNo.length()) {
     			StringBuilder birthdayStr = new StringBuilder(8);
     			birthdayStr.append("19")
-    						.append(idCardNo.substring(6,8))//出生年份2位数
-    						.append(idCardNo.substring(8,10))//出生月份
-    						.append(idCardNo.substring(10,12));//出生日期
+                            //出生年份2位数
+    						.append(idCardNo.substring(6,8))
+                            //出生月份
+    						.append(idCardNo.substring(8,10))
+                            //出生日期
+    						.append(idCardNo.substring(10,12));
     			
     			birthday = birthdayStr.toString();
-    		}else if(18 == idCardNo.length())//18位
-    		{
+                //18位
+    		} else if(NumberConstants.EIGHTEEN == idCardNo.length()) {
     			birthday = idCardNo.substring(6, 14);
     		}
     	}
@@ -266,22 +286,25 @@ public class IDCardUtils {
 		if (isValid(idCardNo)) {
 			Integer tempInt = gendered;
 			// 15位身份证号
-			if (15 == idCardNo.length()) {
+			if (NumberConstants.FIFTEEN == idCardNo.length()) {
 				tempInt = Integer.parseInt(idCardNo.substring(idCardNo.length()-1));
-			} else if (18 == idCardNo.length())// 18位
-			{
+                // 18位
+			} else if (NumberConstants.EIGHTEEN == idCardNo.length()) {
 				tempInt = Integer.parseInt(idCardNo.substring(idCardNo.length()-2,idCardNo.length()-1));
 			}
 			
 			switch(tempInt % 2) {
 				case 0:
-					gendered =  2;//偶数为女
+                    //偶数为女
+					gendered =  2;
 					break;
 				case 1:
-					gendered = 1;//奇数为男
+                    //奇数为男
+					gendered = 1;
 					break;
 				default:
-					gendered = 0;//未知
+                    //未知
+					gendered = 0;
 					break;
 					
 			}

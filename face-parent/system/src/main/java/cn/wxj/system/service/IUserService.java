@@ -64,6 +64,7 @@ public interface IUserService extends IService<User> {
     /**
      * 添加用户
      * @param userAo
+     * @return String
      */
     String addUserAo(UserAo userAo);
 

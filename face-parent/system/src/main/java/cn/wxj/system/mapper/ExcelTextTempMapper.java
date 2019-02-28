@@ -18,6 +18,8 @@ public interface ExcelTextTempMapper extends BaseMapper<ExcelTextTemp> {
 
     /**
      * 清除数据库缓存的前天以前Excel导入的数据
+     * @param now
+     * @return
      */
     List<ExcelTextTemp> selectBeforeDate(@Param("now") String now);
 }

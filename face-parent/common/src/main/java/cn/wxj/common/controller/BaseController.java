@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author wxjason
+ */
 @Component
 public class BaseController {
     @Autowired

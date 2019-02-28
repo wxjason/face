@@ -16,6 +16,9 @@ import java.nio.channels.FileChannel;
 import java.util.Iterator;
 import java.util.Objects;
 
+/**
+ * @author wxjason
+ */
 @Component
 @Slf4j
 public class FileUtils {
@@ -102,8 +105,9 @@ public class FileUtils {
             File newFile = new File(newFileName);
             os = new FileOutputStream(newFile);
             int bytesRead = 0;
-            byte[] buffer = new byte[1024];
-            while ((bytesRead = in.read(buffer, 0, 1024)) != -1) {
+            int len = 1024;
+            byte[] buffer = new byte[len];
+            while ((bytesRead = in.read(buffer, 0, len)) != -1) {
                 os.write(buffer, 0, bytesRead);
             }
         } catch (Exception e) {
@@ -193,6 +197,9 @@ public class FileUtils {
     }
 
     enum ContentType {
+        /**
+         *
+         */
         UNKNOWN_TYPE("", "application/octet-stream"),
         BMP_TYPE("bmp", "application/x-bmp"),
         GIF_TYPE("gif", "image/gif"),
@@ -246,9 +253,9 @@ public class FileUtils {
      */
     public static boolean checkType(String photo) {
         String imgtype = photo.substring(photo.lastIndexOf(".") + 1, photo.length()).toLowerCase();
-        if (!"png".equalsIgnoreCase(imgtype)
-                && !"jpeg".equalsIgnoreCase(imgtype)
-                && !"jpg".equalsIgnoreCase(imgtype)) {
+        if (!IMAGE_TYPE_PNG.equalsIgnoreCase(imgtype)
+                && !IMAGE_TYPE_JPEG.equalsIgnoreCase(imgtype)
+                && !IMAGE_TYPE_JPG.equalsIgnoreCase(imgtype)) {
             return false;
         }
         return true;

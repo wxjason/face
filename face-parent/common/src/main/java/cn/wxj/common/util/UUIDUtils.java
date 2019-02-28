@@ -8,6 +8,9 @@ package cn.wxj.common.util;/*
 import java.util.Random;
 import java.util.UUID;
 
+/**
+ * @author wxjason
+ */
 public class UUIDUtils {
     public static String create() {
         return UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();

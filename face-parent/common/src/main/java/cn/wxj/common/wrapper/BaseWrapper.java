@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 /**
  * VO 转换类的 基类
  *
+ * @author wxjason
  * @ClassName BaseWrapper
  * @Auther: WangJinbo
  * @Date: 2018/8/16
@@ -29,6 +30,12 @@ public abstract class BaseWrapper<T extends Model, F extends BaseVo> {
         initClasses();
     }
 
+    /**
+     * 转换
+     * @param model
+     * @return
+     * @throws IOException
+     */
     protected abstract F warp(T model) throws IOException;
 
     /**

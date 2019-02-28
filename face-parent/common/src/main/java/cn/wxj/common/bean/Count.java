@@ -7,6 +7,9 @@ package cn.wxj.common.bean;/*
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * @author wxjason
+ */
 public class Count {
     private AtomicInteger success = new AtomicInteger(0);
     private AtomicInteger fail = new AtomicInteger(0);

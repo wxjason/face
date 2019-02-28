@@ -9,19 +9,19 @@ import java.security.KeyFactory;
 import java.security.spec.X509EncodedKeySpec;
 
 /**
- * @ClassName: RSAEncoder
+ * @ClassName: RsaEncoder
  * @Package cn.wxj.common.util
  * @Description:
  * @Author wuxinjian
  * @Date 2018/12/18 11:09
  * @Version V1.0
  */
-public class RSAEncoder {
+public class RsaEncoder {
 
     /**
      * 非对称密钥算法
      */
-    public static final String KEY_ALGORITHM = "RSA";
+    public static final String KEY_ALGORITHM = "Rsa";
 
 
     /** *//**

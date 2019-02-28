@@ -6,7 +6,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 /**
- * @ClassName: RSA
+ * @ClassName: Rsa
  * @Package cn.wxj.common.bean.rsa
  * @Description:
  * @Author wuxinjian
@@ -14,7 +14,7 @@ import java.security.PublicKey;
  * @Version V1.0
  */
 @Data
-public class RSA {
+public class Rsa {
 
     private PublicKey publicKey;
 
@@ -22,7 +22,7 @@ public class RSA {
 
     @Override
     public String toString() {
-        return "RSA{" +
+        return "Rsa{" +
                 "publicKey='" + publicKey + '\'' +
                 ", privateKey='" + privateKey + '\'' +
                 '}';

@@ -2,6 +2,10 @@ package cn.wxj.system.enumeration;
 
 import java.util.Objects;
 
+/**
+ * @author wxjason
+ */
+
 public enum MenuType {
 
     /**

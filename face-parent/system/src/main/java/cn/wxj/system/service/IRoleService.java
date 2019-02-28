@@ -35,6 +35,7 @@ public interface IRoleService extends IService<Role> {
     /**
      * 添加角色
      * @param roleAo
+     * @return String
      */
     String addRole(RoleAo roleAo);
 

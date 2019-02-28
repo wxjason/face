@@ -35,15 +35,15 @@ public class ControllerWrapper implements InitializingBean, ApplicationContextAw
      */
     private static final Logger logger = LoggerFactory.getLogger(ControllerWrapper.class);
 
-    private static final Map<String, BaseWrapper> wrappers = new ConcurrentHashMap<>();
+    private static final Map<String, BaseWrapper> WRAPPERS = new ConcurrentHashMap<>();
 
     private ApplicationContext ctx;
 
     @Override
     public void afterPropertiesSet() {
         final Map<String, BaseWrapper> handlerMap = BeanFactoryUtils.beansOfTypeIncludingAncestors(ctx, BaseWrapper.class, true, true);
-        handlerMap.values().forEach(p -> wrappers.put(generateKey(p.getModelClass(), p.getDataClass()), p));
-        logger.info("加载 VO 转化器完成,共有{}个", wrappers.size());
+        handlerMap.values().forEach(p -> WRAPPERS.put(generateKey(p.getModelClass(), p.getDataClass()), p));
+        logger.info("加载 VO 转化器完成,共有{}个", WRAPPERS.size());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ControllerWrapper implements InitializingBean, ApplicationContextAw
     }
 
     public <T extends Model, F extends BaseVo> F warp(T model, Class<F> dataClass) throws IOException {
-        BaseWrapper baseWrapper = wrappers.get(generateKey(model.getClass(), dataClass));
+        BaseWrapper baseWrapper = WRAPPERS.get(generateKey(model.getClass(), dataClass));
         if (baseWrapper == null) {
             throw new RuntimeException("没有找到 " + model.getClass().getName() + " 的 VO 转化器" + generateKey(model.getClass(), dataClass));
         }
