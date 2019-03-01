@@ -5,6 +5,8 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.wxj.face.admin.entity.SnapRecord">
         <id column="id" property="id" />
+        <result column="device_id" property="deviceId" />
+        <result column="device_name" property="deviceName" />
         <result column="person_name" property="personName" />
         <result column="person_image" property="personImage" />
         <result column="snap_image" property="snapImage" />
@@ -14,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS id, person_name AS personName, person_image AS personImage, snap_image AS snapImage, similar AS similar, create_time AS createTime
+        id AS id, device_id AS deviceId, device_name AS deviceName, person_name AS personName, person_image AS personImage, snap_image AS snapImage, similar AS similar, create_time AS createTime
     </sql>
     <select id="findListByPage" resultType="cn.wxj.face.admin.entity.SnapRecord">
         SELECT
@@ -23,6 +25,12 @@
         WHERE 1 = 1
         <if test="snapRecord.personName != null and snapRecord.personName != ''">
             AND person_name LIKE concat('%', #{snapRecord.personName},'%')
+        </if>
+        <if test="snapRecord.deviceId != null and snapRecord.deviceId != ''">
+            AND device_id = #{snapRecord.deviceId}
+        </if>
+        <if test="snapRecord.deviceName != null and snapRecord.deviceName != ''">
+            AND device_name LIKE concat('%', #{snapRecord.deviceName},'%')
         </if>
         ORDER BY create_time DESC
     </select>

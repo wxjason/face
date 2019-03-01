@@ -16,6 +16,11 @@
 	</properties>
 
 	<dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
         <dependency>
             <groupId>cn.wxj</groupId>
             <artifactId>face-api</artifactId>

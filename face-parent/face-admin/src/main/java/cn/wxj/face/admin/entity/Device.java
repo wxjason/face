@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotations.Version;
@@ -23,70 +24,81 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author wxjason123
- * @since 2019-02-27
+ * @since 2019-03-01
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("ad_snap_record")
-public class SnapRecord extends Model<SnapRecord> {
+@TableName("ad_device")
+public class Device extends Model<Device> {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 主键ID
+     * 主键id
      */
     @TableId(value = "id", type = IdType.INPUT)
     private String id;
-    /**
-     * 设备ID
-     */
-    @TableField("device_id")
-    private String deviceId;
     /**
      * 设备名称
      */
     @TableField("device_name")
     private String deviceName;
     /**
-     * 人员名称
+     * 设备网络流地址
      */
-    @TableField("person_name")
-    private String personName;
+    @TableField("stream_url")
+    private String streamUrl;
     /**
-     * 人员库人脸图名称
+     * 设备状态1启用0停用
      */
-    @TableField("person_image")
-    private String personImage;
+    @TableField("status")
+    private Integer status;
     /**
-     * 抓拍图片
+     * 逻辑删除:1:未删,0已删
      */
-    @TableField("snap_image")
-    private String snapImage;
+    @TableField("del")
+    @TableLogic
+    private Integer del;
     /**
-     * 抓拍图片
+     * 创建用户id
      */
-    @TableField("similar")
-    private Integer similar;
+    @TableField("create_user_id")
+    private String createUserId;
+    /**
+     * 创建时间
+     */
     @TableField("create_time")
     private LocalDateTime createTime;
+    /**
+     * 修改用户id
+     */
+    @TableField("update_user_id")
+    private String updateUserId;
+    /**
+     * 最后修改时间
+     */
+    @TableField("update_time")
+    private LocalDateTime updateTime;
 
 
     public static final String ID = "id";
 
-    public static final String DEVICE_ID = "device_id";
-
     public static final String DEVICE_NAME = "device_name";
 
-    public static final String PERSON_NAME = "person_name";
+    public static final String STREAM_URL = "stream_url";
 
-    public static final String PERSON_IMAGE = "person_image";
+    public static final String STATUS = "status";
 
-    public static final String SNAP_IMAGE = "snap_image";
+    public static final String DEL = "del";
 
-    public static final String SIMILAR = "similar";
+    public static final String CREATE_USER_ID = "create_user_id";
 
     public static final String CREATE_TIME = "create_time";
+
+    public static final String UPDATE_USER_ID = "update_user_id";
+
+    public static final String UPDATE_TIME = "update_time";
 
     @Override
     protected Serializable pkVal() {

@@ -21,6 +21,10 @@ public class SnapRecordVo extends BaseVo {
      */
     private String id;
     /**
+     * 设备名称
+     */
+    private String deviceName;
+    /**
      * 人员名称
      */
     private String personName;

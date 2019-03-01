@@ -6,8 +6,16 @@
     </div>
     <!-- form表单 -->
     <el-form :inline="true" :model="searchForm" class="demo-form-inline my-form" label-width="80px">
-      <el-form-item label="姓名搜索：">
+      <el-form-item label="人员姓名：">
         <el-input v-model="searchForm.personName" placeholder="全部"></el-input>
+      </el-form-item>
+      <el-form-item label="设备名称：">
+        <el-select v-model="searchForm.deviceId" filterable placeholder="全部">
+          <el-option label="全部" :value="null"></el-option>
+          <template v-for="device in deviceList">
+            <el-option :label="device.deviceName" :value="device.id"></el-option>
+          </template>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="search(true)"><i class="my-icon-search my-icon"></i>搜索</el-button>
@@ -16,28 +24,17 @@
     </el-form>
     <!-- 数据表 -->
     <el-row :gutter="20">
-      <!--<el-col :span="6" v-for="r in recordList" style="margin-bottom:10px;position: relative;height: 50%!important;">-->
-        <!--<el-card :body-style="{ padding: '0px' }">-->
-          <!--<img :src="r.snapImage" class="image">-->
-          <!--<div style="padding: 14px;text-align: center;">-->
-            <!--<span>{{r.personName}}</span>-->
-            <!--<div class="bottom clearfix">-->
-              <!--<time class="time">{{r.createTime}}</time>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</el-card>-->
-      <!--</el-col>-->
       <template v-for="r in recordList">
-        <el-col :span="6" style="margin-bottom:10px;position: relative;height: 50%!important;">
+        <el-col :span="3" style="margin-bottom:10px;position: relative;height: 50%!important;">
           <el-card :body-style="{ padding: '0px' }">
-            <img :src="r.snapImage" class="image1">
-            <img :src="r.personImage ? r.personImage : '/static/warn.jpg'" class="image1">
+            <img :src="r.snapImage" class="image">
             <div style="padding: 14px;text-align: center;">
-              <span>{{r.similarPoint}}</span>
-              <span>{{r.personName}}</span>
-              <div class="bottom clearfix">
-                <time class="time">{{r.createTime}}</time>
-              </div>
+              <p>
+                <span>{{r.similarPoint}}</span>
+                <span>{{r.personName}}</span>
+              </p>
+              <p>{{r.deviceName ? r.deviceName : '-'}}</p>
+              <p class="time">{{r.createTime}}</p>
             </div>
           </el-card>
         </el-col>
@@ -64,14 +61,16 @@
       return {
         formLabelWidth: '100px',
         recordList: [],
+        deviceList:[],
         page: {
           currentPage: 1,
-          pageSize: 8,
+          pageSize: 16,
           totalPage: 0,
           offset: 0
         },
         searchForm: {
           personName: null,
+          deviceId: null,
         }
       };
     },
@@ -91,13 +90,21 @@
           self.page.totalPage = data.total;  //信息总条数
         });
       },
+      searchDeviceList(){
+        let self = this;
+        let url = '/api/face/admin/device/list';
+        self.post(url, {}, function (data) {
+          self.deviceList = data;
+        });
+      },
       search(resetPage) {
+        this.searchDeviceList();
         this.searchRecordList(resetPage);
       },
       resetSearch() {
         this.page = {
           currentPage: 1,
-          pageSize: 8,
+          pageSize: 16,
           totalPage: 0,
           offset: 0
         };
@@ -133,9 +140,8 @@
     float: right;
   }
 
-  .image1 {
-    width: 50%;
-    float: left;
+  .image {
+    width: 100%;
     display: block;
   }
 

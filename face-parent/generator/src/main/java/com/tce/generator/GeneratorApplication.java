@@ -51,7 +51,7 @@ public class GeneratorApplication {
     /**
      * 生成类所在相对路径
      */
-    private static final String OUTPUT_DIR = "F:/Workspaces/IdeaProjects/face-parent/face-admin/src/main/java";
+    private static final String OUTPUT_DIR = "H:/git/face/face-parent/face-admin/src/main/java";
 
     /**
      * 生成类的包名
@@ -66,7 +66,7 @@ public class GeneratorApplication {
     /**
      * 需生成的表名
      */
-    private static final String[] TABLES = {"ad_person", "ad_snap_record"};
+    private static final String[] TABLES = {"ad_device"};
 
     public static void main(String[] args) {
 
@@ -85,7 +85,7 @@ public class GeneratorApplication {
                 .setAuthor(AUTHOR)
                 .setOutputDir(OUTPUT_DIR)
                 .setFileOverride(true)
-                .setIdType(IdType.AUTO)
+                .setIdType(IdType.UUID)
                 .setBaseColumnList(true)
                 .setBaseResultMap(true);
 

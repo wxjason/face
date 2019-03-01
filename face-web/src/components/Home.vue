@@ -1,6 +1,6 @@
 <template>
   <div class="mncont">
-
+    <img src="/static/home.jpg"/>
   </div>
 </template>
 

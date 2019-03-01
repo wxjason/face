@@ -7,6 +7,7 @@ import Home from '../components/Home.vue';
 // admin
 import SnapRecord from '../components/admin/SnapRecord.vue';
 import Person from '../components/admin/Person.vue';
+import Device from '../components/admin/Device.vue';
 
 // system
 import User from '../components/system/User.vue';
@@ -55,6 +56,11 @@ export default new Router({
           path: '/admin/person',
           name: 'Person',
           component: Person
+        },
+        {
+          path: '/admin/device',
+          name: 'Device',
+          component: Device
         },
         {
           path: '/user',

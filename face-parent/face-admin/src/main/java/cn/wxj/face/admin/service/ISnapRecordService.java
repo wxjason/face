@@ -18,9 +18,10 @@ public interface ISnapRecordService extends IService<SnapRecord> {
 
     /**
      * 处理抓拍图片
+     * @param deviceId
      * @param imageBase64
      */
-    void snapImage(String imageBase64);
+    void snapImage(String deviceId, String imageBase64);
 
     /**
      * 查询列表数据

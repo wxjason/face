@@ -9,7 +9,6 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import common from './assets/js/common';
 import cookieUtil from './assets/js/cookieUtil';
-import jQueryRotate from './assets/js/jQueryRotate';
 
 import 'swiper/dist/css/swiper.css';
 import './assets/css/reset.css';
@@ -24,13 +23,14 @@ Vue.prototype.$ = $;
 Vue.prototype.common = common;
 Vue.prototype.cookieUtil = cookieUtil;
 Vue.prototype.loadingOptions = {
-  fullscreen: true,
+  fullscreen: false,
   body: true,
   lock: true,
   text: '数据加载中，请稍后……',
   spinner: 'el-icon-loading',
-  background: 'rgba(0,0,0,0.1)'
+  background: 'rgba(0,0,0,0.5)'
 };
+Vue.prototype.conf = conf;
 
 Vue.use(ElementUI);
 Vue.config.productionTip = true;

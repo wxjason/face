@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.wxj.face.admin.mapper.DeviceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.wxj.face.admin.entity.Device">
+        <id column="id" property="id"/>
+        <result column="device_name" property="deviceName"/>
+        <result column="stream_url" property="streamUrl"/>
+        <result column="status" property="status"/>
+        <result column="del" property="del"/>
+        <result column="create_user_id" property="createUserId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_user_id" property="updateUserId"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS id, device_name AS deviceName, stream_url AS streamUrl, status AS status, del AS del, create_user_id AS createUserId, create_time AS createTime, update_user_id AS updateUserId, update_time AS updateTime
+    </sql>
+    <select id="findListByPage" resultType="cn.wxj.face.admin.entity.Device"
+            parameterType="com.baomidou.mybatisplus.plugins.Page">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ad_device
+        WHERE del = 1
+        <if test="device.deviceName != null and device.deviceName != ''">
+            AND device_name LIKE concat('%', #{device.deviceName}, '%')
+        </if>
+        <if test="device.status != null">
+            AND `status` = #{device.status}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+    <select id="findList" resultType="cn.wxj.face.admin.entity.Device">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ad_device
+        WHERE del = 1
+        <if test="device.deviceName != null and device.deviceName != ''">
+            AND device_name LIKE concat('%', #{device.deviceName}, '%')
+        </if>
+        <if test="device.status != null and device.status != ''">
+            AND `status` =#{device.status}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+
+</mapper>

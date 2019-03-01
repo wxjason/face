@@ -53,7 +53,6 @@ public class OperationLogServiceImpl extends ServiceImpl<OperationLogMapper, Ope
         return this.baseMapper.selectListByPage(page, operationLogAo, Constants.ADMIN_USER_ID.equals(HttpUtils.getUserIdFromToken()));
     }
 
-    @Async
     @Override
     public void addOperationLog(OperationLogAddAo operationLogAddAo) {
         OperationLog operationLog = new OperationLog();
