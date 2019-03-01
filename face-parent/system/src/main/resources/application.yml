@@ -6,9 +6,9 @@ spring:
   application:
     name: system
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/face?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=false
+    url: jdbc:mysql://192.168.2.207:3306/face?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useSSL=false
     username: root
-    password: wxj
+    password: Tce123456
     hikari:
       connection-test-query: SELECT 1
 eureka:

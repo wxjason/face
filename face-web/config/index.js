@@ -12,14 +12,14 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api/system': {//在请求中使用/api即访问target地址
-        target: 'http://127.0.0.1:8005',//这里填写需要跨域访问的路径
+        target: 'http://192.168.8.13:8005',//这里填写需要跨域访问的路径
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
         }
       },
       '/api/face': {//在请求中使用/api即访问target地址
-        target: 'http://127.0.0.1:6666',//这里填写需要跨域访问的路径
+        target: 'http://192.168.8.13:6666',//这里填写需要跨域访问的路径
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''
@@ -28,7 +28,7 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    host: 'localhost', // can be overwritten by process.env.HOST
+    host: '192.168.2.13', // can be overwritten by process.env.HOST
     port: 3000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
